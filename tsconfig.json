@@ -3,8 +3,10 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",
+    "jsx": "react",
     "sourceMap": true,
     "declaration": false,
+    "noEmitOnError": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
