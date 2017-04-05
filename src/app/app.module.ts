@@ -7,6 +7,7 @@ import { RouterModule} from '@angular/router';
 import { AppComponent } from './app.component';
 import { PathwayComponent } from './pathway/pathway.component';
 import {routes} from '../app.routes';
+import { MaterialModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {routes} from '../app.routes';
     routes,
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent],
