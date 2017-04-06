@@ -21,12 +21,12 @@
   <div class="col-6">
     <div *ngIf="entities.length > 0">
       <md-input-container class="input">
-        <input type="text" mdInput [formControl]="entitySearchControl" [mdAutocomplete]="auto">
+        <input type="text" mdInput [formControl]="entitySearchControl" [mdAutocomplete]="auto" placeholder="Search for a pathway element">
       </md-input-container>
 
       <md-autocomplete #auto="mdAutocomplete" class="input">
         <md-option *ngFor="let entity of filteredEntities | async" [value]="entity.id" class="input">
-          {{entity.id}} {{entity.text? '(' + entity.text + ')' : null}}
+          {{entity.text}} ({{entity.id}})
         </md-option>
       </md-autocomplete>
     </div>

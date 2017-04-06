@@ -55,7 +55,6 @@ export class PathwayCreateComponent implements OnInit {
         if (value && value.length > 0) {
           this.entities = [];
           this.pathwayElem.nativeElement.innerHTML = '';
-          console.log(this.pathwayElem.nativeElement.innerHTML);
           Pvjs.loadDiagram('#pathway', 'WP' + value, {
             width: '100%',
             height: '100%'
@@ -63,12 +62,16 @@ export class PathwayCreateComponent implements OnInit {
             this.pathwayInstance = instance;
             instance.ready.subscribe(ready => {
               if (ready) {
-                this.entities = instance.manipulator.getEntities().map(entity => {
-                  return {
-                    id: entity.id,
-                    text: entity.textContent
-                  };
-                });
+                this.entities = instance.manipulator.getEntities()
+                  .filter(entity => entity.kaavioType === 'Node') // Only do Nodes for now
+                  .filter(entity => entity.textContent) // Only show those with text (Metabolites/Genes/Rna)
+                  .map(entity => {
+                    console.log(entity.textContent)
+                    return {
+                      id: entity.id,
+                      text: entity.textContent
+                    };
+                  });
 
                 this.renderEntitySearch();
               }
