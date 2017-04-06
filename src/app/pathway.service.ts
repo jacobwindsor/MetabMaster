@@ -24,7 +24,7 @@ export class PathwayService {
    */
   get(id: string): Observable<{id: string, WPId: number, title: string, description: string, userId: string}> {
     return Observable.fromPromise(new Promise((resolve, reject) => {
-      this.fb.db.ref('pathways/' + WPId).once('value').then(snapshot => {
+      this.fb.db.ref('pathways/' + id).once('value').then(snapshot => {
         const val = snapshot.val();
         resolve({
           id: snapshot.key(),

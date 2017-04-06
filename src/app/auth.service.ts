@@ -35,4 +35,8 @@ export class AuthService {
   get authenticated(): boolean {
     return !!this.fb.auth.currentUser;
   }
+
+  get user(): any {
+    return this.fb.auth.currentUser;
+  }
 }

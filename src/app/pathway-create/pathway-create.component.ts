@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from "rxjs";
+import {PathwayService} from "../pathway.service";
+import {AuthService} from "../auth.service";
 
 declare var Pvjs: any;
 
@@ -24,7 +26,7 @@ export class PathwayCreateComponent implements OnInit {
 
   filteredEntities: Observable<{id: string, text: string}[]>;
 
-  constructor() { }
+  constructor(public pathwayService: PathwayService, public auth: AuthService) { }
 
   filter(val: string): {id: string, text: string}[] {
     return this.entities.filter(entity => new RegExp(val, 'gi').test(entity.id + entity.text));
@@ -66,7 +68,6 @@ export class PathwayCreateComponent implements OnInit {
                   .filter(entity => entity.kaavioType === 'Node') // Only do Nodes for now
                   .filter(entity => entity.textContent) // Only show those with text (Metabolites/Genes/Rna)
                   .map(entity => {
-                    console.log(entity.textContent)
                     return {
                       id: entity.id,
                       text: entity.textContent
@@ -79,5 +80,19 @@ export class PathwayCreateComponent implements OnInit {
           });
         }
       });
+  }
+
+  savePathway() {
+    if (this.pathwayForm.errors) {
+      return;
+    }
+
+    const formVal = this.pathwayForm.value;
+    this.pathwayService.create({
+      WPId: formVal.WPId,
+      title: formVal.title,
+      description: formVal.description,
+      userId: this.auth.user.uid
+    });
   }
 }
