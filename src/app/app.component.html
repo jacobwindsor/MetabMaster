@@ -6,6 +6,9 @@
       <span *ngIf="auth.authenticated">
         <button md-button (click)="logout()">Sign out</button>
       </span>
+      <span *ngIf="! auth.authenticated">
+        <button md-button [routerLink]="['/signin']">Sign in</button>
+      </span>
     </md-toolbar>
   </div>
   <div class="row">
