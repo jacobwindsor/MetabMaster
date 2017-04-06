@@ -17,7 +17,8 @@ export class SignUpOrSignInComponent implements OnInit {
     ])),
     password: new FormControl('', Validators.compose([
       Validators.required,
-      PasswordValidators.repeatCharacterRegexRule(4)
+      PasswordValidators.repeatCharacterRegexRule(4),
+      Validators.minLength(6)
     ]))
   });
 
@@ -31,8 +32,7 @@ export class SignUpOrSignInComponent implements OnInit {
       PasswordValidators.repeatCharacterRegexRule(4)
     ])),
     password2: new FormControl('', Validators.compose([
-      Validators.required,
-      PasswordValidators.mismatchedPasswords('password', 'password2')
+      Validators.required
     ]))
   });
 
@@ -40,7 +40,7 @@ export class SignUpOrSignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.authState$.subscribe(user => {
-      if(user) {
+      if (user) {
         this.router.navigate(['/']);
       }
     });
@@ -61,7 +61,7 @@ export class SignUpOrSignInComponent implements OnInit {
     }
 
     const formVal = this.signUpForm.value;
-    this.auth.signUpWithEmailAndPassword(formVal.email, formVal.password)
+    this.auth.signUpWithEmailAndPassword(formVal.email, formVal.password);
   }
 
 }
