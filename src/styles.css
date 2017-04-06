@@ -5,3 +5,7 @@
 /*Import Material design afterwards to override bootstrap */
 @import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+
+a:not([href]):not([tabindex]) {
+  color: green;
+}
