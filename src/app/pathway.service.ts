@@ -14,7 +14,11 @@ export class PathwayService {
    */
   create(values: {WPId: number, title: string, description: string, userId: string}): Promise<any> {
     const ref = this.fb.db.ref('pathways').push();
-    return ref.set(values);
+    return new Promise((resolve, reject) => {
+      ref.set(values)
+        .then(resolve(ref.key))
+        .catch(err => resolve(err));
+    });
   }
 
   /**
@@ -27,7 +31,7 @@ export class PathwayService {
       this.fb.db.ref('pathways/' + id).once('value').then(snapshot => {
         const val = snapshot.val();
         resolve({
-          id: snapshot.key(),
+          id: snapshot.key,
           WPId: val.WPId,
           title: val.title,
           description: val.description,
@@ -75,7 +79,7 @@ export class PathwayService {
           const val = data.val();
           returnVal.push(
             {
-              id: data.key(),
+              id: data.key,
               WPId: val.WPId,
               title: val.title,
               description: val.description,

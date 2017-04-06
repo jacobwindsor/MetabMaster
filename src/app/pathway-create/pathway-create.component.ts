@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from "rxjs";
 import {PathwayService} from "../pathway.service";
 import {AuthService} from "../auth.service";
+import {Router} from "@angular/router";
 
 declare var Pvjs: any;
 
@@ -17,16 +18,16 @@ export class PathwayCreateComponent implements OnInit {
   entities: {id: string, text: string}[] = []; // List of the entity IDs
 
   pathwayForm = new FormGroup({
-    WPId: new FormControl(''),
-    title: new FormControl(''),
-    description: new FormControl('')
+    WPId: new FormControl('', Validators.required),
+    title: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required)
   });
 
   entitySearchControl = new FormControl();
 
   filteredEntities: Observable<{id: string, text: string}[]>;
 
-  constructor(public pathwayService: PathwayService, public auth: AuthService) { }
+  constructor(public pathwayService: PathwayService, public auth: AuthService, public router: Router) { }
 
   filter(val: string): {id: string, text: string}[] {
     return this.entities.filter(entity => new RegExp(val, 'gi').test(entity.id + entity.text));
@@ -83,16 +84,17 @@ export class PathwayCreateComponent implements OnInit {
   }
 
   savePathway() {
-    if (this.pathwayForm.errors) {
-      return;
-    }
-
+    // TODO: Only fire when form valid
     const formVal = this.pathwayForm.value;
     this.pathwayService.create({
       WPId: formVal.WPId,
       title: formVal.title,
       description: formVal.description,
       userId: this.auth.user.uid
+    }).then(key => {
+      this.router.navigate(['/pathway', key]);
+    }).catch(err => {
+      console.log(err);
     });
   }
 }
