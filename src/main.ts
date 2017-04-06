@@ -10,6 +10,7 @@ import { environment } from './environments/environment';
 // import 'pvjs';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/observable/fromPromise';
 
 if (environment.production) {
   enableProdMode();
