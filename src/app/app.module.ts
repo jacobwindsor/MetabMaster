@@ -14,13 +14,15 @@ import {PathwayService} from "./pathway.service";
 import { SignUpOrSignInComponent } from './sign-up-or-sign-in/sign-up-or-sign-in.component';
 import {AuthService} from "./auth.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { PathwayCreateComponent } from './pathway-create/pathway-create.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PathwayComponent,
     PathwayListComponent,
-    SignUpOrSignInComponent
+    SignUpOrSignInComponent,
+    PathwayCreateComponent
   ],
   imports: [
     routes,

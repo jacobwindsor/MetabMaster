@@ -12,8 +12,8 @@ export class PathwayService {
    * @param WPId - The ID for the WikiPathways pathway. Exclude the 'WP'. E.g. use 78 for TCA cycle
    * @param values
    */
-  create(WPId: number, values: {description: string, userId: string}): void {
-    this.fb.db.ref('pathways/' + WPId).set(values);
+  create(WPId: number, values: {description: string, userId: string}): Promise<any> {
+    return this.fb.db.ref('pathways/' + WPId).set(values);
   }
 
   /**
@@ -41,8 +41,8 @@ export class PathwayService {
    * @param WPId
    * @param updates
    */
-  update(WPId: number, updates: {description: string}): void {
-    this.fb.db.ref('pathways/' + WPId).update(updates);
+  update(WPId: number, updates: {description: string}): Promise<any> {
+    return this.fb.db.ref('pathways/' + WPId).update(updates);
   }
 
   /**
