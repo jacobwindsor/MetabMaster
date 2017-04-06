@@ -11,6 +11,9 @@ import { environment } from './environments/environment';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/catch';
 
 if (environment.production) {
   enableProdMode();

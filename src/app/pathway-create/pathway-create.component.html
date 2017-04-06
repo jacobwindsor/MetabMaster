@@ -1,3 +1,30 @@
-<p>
-  pathway-create works!
-</p>
+<div class="row">
+  <div class="col-6">
+    <form class="container" [formGroup]="pathwayForm">
+      <div class="row">
+        <md-input-container class="input">
+          <input mdInput placeholder="WikiPathways ID" type="text" formControlName="WPId">
+        </md-input-container>
+      </div>
+      <div class="row">
+        <md-input-container class="input">
+          <input mdInput placeholder="Title" type="text" formControlName="title">
+        </md-input-container>
+      </div>
+      <div class="row">
+        <md-input-container class="input">
+          <textarea mdInput placeholder="Interactive description" formControlName="description" rows="10"></textarea>
+        </md-input-container>
+      </div>
+    </form>
+
+    <ul *ngIf="entities.length">
+      <li *ngFor="let entity of entities">
+        {{entity}}
+      </li>
+    </ul>
+  </div>
+  <div class="col-6">
+    <div #pathwayWrapper id="pathway"></div>
+  </div>
+</div>
