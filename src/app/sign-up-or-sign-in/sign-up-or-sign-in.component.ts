@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../auth.service";
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from "@angular/router";
-import { CustomValidators } from 'ng2-validation';
+import {PasswordValidators, EmailValidators} from 'ng2-validators'
 
 @Component({
   selector: 'app-sign-up-or-sign-in',
@@ -13,26 +13,26 @@ export class SignUpOrSignInComponent implements OnInit {
   signInForm = new FormGroup({
     email: new FormControl('', Validators.compose([
       Validators.required,
-      CustomValidators.email
+      EmailValidators.normal
     ])),
     password: new FormControl('', Validators.compose([
       Validators.required,
-      Validators.minLength(6)
+      PasswordValidators.repeatCharacterRegexRule(4)
     ]))
   });
 
   signUpForm = new FormGroup({
     email: new FormControl('', Validators.compose([
       Validators.required,
-      CustomValidators.email
+      EmailValidators.normal
     ])),
     password: new FormControl('', Validators.compose([
       Validators.required,
-      Validators.minLength(6)
+      PasswordValidators.repeatCharacterRegexRule(4)
     ])),
     password2: new FormControl('', Validators.compose([
       Validators.required,
-      CustomValidators.equalTo('password')
+      PasswordValidators.mismatchedPasswords('password', 'password2')
     ]))
   });
 

@@ -4,17 +4,19 @@ import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable()
 export class AuthService {
-  private authState: BehaviorSubject<null> = new BehaviorSubject(null);
+  private authState: BehaviorSubject<null> = new BehaviorSubject<any>(null);
   public authState$: Observable<any> = this.authState.asObservable();
 
   constructor(public fb: FirebaseService) {
-    this.fb.auth.onAuthStateChanged(user => {
+    fb.auth.onAuthStateChanged(user => {
       if (user) {
         // User signed in
         this.authState.next(user);
       } else {
         this.authState.next(null);
       }
+    }, err => {
+      console.log(err);
     });
   }
 

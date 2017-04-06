@@ -25,7 +25,7 @@
     "@types/react": "^15.0.20",
     "core-js": "^2.4.1",
     "firebase": "^3.7.5",
-    "ng2-validation": "^3.9.1",
+    "ng2-validators": "^2.1.1",
     "pvjs": "git://github.com/wikipathways/pvjs.git#typescript-react",
     "rxjs": "^5.1.0",
     "web-animations-js": "^2.2.2",
