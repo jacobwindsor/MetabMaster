@@ -1,33 +1,40 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule,  CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { PathwayComponent } from './pathway/pathway.component';
-import {routes} from '../app.routes';
+import {routes} from './app.routes';
 import { MaterialModule } from '@angular/material';
 import { PathwayListComponent } from './pathway-list/pathway-list.component';
 import {FirebaseService} from "./firebase.service";
 import {PathwayService} from "./pathway.service";
+import { SignUpOrSignInComponent } from './sign-up-or-sign-in/sign-up-or-sign-in.component';
+import {AuthService} from "./auth.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
     AppComponent,
     PathwayComponent,
-    PathwayListComponent
+    PathwayListComponent,
+    SignUpOrSignInComponent
   ],
   imports: [
     routes,
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     FirebaseService,
-    PathwayService
+    PathwayService,
+    AuthService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

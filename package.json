@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^4.0.1",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.0.0",
@@ -24,8 +25,10 @@
     "@types/react": "^15.0.20",
     "core-js": "^2.4.1",
     "firebase": "^3.7.5",
+    "ng2-validation": "^3.9.1",
     "pvjs": "git://github.com/wikipathways/pvjs.git#typescript-react",
     "rxjs": "^5.1.0",
+    "web-animations-js": "^2.2.2",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
