@@ -27,4 +27,12 @@ export class AuthService {
   signInWithEmailAndPassword(email, password): Promise<any> {
     return this.fb.auth.signInWithEmailAndPassword(email, password);
   }
+
+  logout() {
+    this.fb.auth.signOut();
+  }
+
+  get authenticated(): boolean {
+    return !!this.fb.auth.currentUser;
+  }
 }
