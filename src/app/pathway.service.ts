@@ -87,7 +87,7 @@ export class PathwayService {
             }
           );
         });
-        observer.onNext(returnVal);
+        observer.next(returnVal);
       });
     });
   }
