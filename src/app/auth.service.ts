@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {FirebaseService} from "./firebase.service";
 import {BehaviorSubject, Observable} from "rxjs";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class AuthService {
   private authState: BehaviorSubject<null> = new BehaviorSubject<any>(null);
   public authState$: Observable<any> = this.authState.asObservable();
 
-  constructor(public fb: FirebaseService) {
+  constructor(public fb: FirebaseService, private router: Router) {
     fb.auth.onAuthStateChanged(user => {
       if (user) {
         // User signed in
@@ -30,6 +31,7 @@ export class AuthService {
 
   logout() {
     this.fb.auth.signOut();
+    this.router.navigate(['/']);
   }
 
   get authenticated(): boolean {
