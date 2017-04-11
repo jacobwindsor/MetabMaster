@@ -15,6 +15,7 @@ import { SignUpOrSignInComponent } from './sign-up-or-sign-in/sign-up-or-sign-in
 import {AuthService} from "./auth.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PathwayCreateComponent } from './pathway-create/pathway-create.component';
+import {AuthGuard} from "./auth.guard";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { PathwayCreateComponent } from './pathway-create/pathway-create.componen
   providers: [
     FirebaseService,
     PathwayService,
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
