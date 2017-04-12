@@ -39,6 +39,6 @@
       </md-autocomplete>
     </div>
 
-    <div #pathwayWrapper id="pathway"></div>
+    <app-diagram WPId="{{WPId}}" (pathwayInstance)="pathwayLoaded($event)"></app-diagram>
   </div>
 </div>

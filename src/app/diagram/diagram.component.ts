@@ -7,20 +7,23 @@ declare var Pvjs: any;
   templateUrl: './diagram.component.html',
   styleUrls: ['./diagram.component.css']
 })
-export class DiagramComponent implements OnInit {
-  @Input('WPId') WPId: number;
+export class DiagramComponent {
+
+  @Input('WPId') set WPId(WPId: number){this.loadDiagram(WPId)};
+
   // TODO: Use Pvjs type when can remove delcaration
   @Output() pathwayInstance = new EventEmitter<any>();
 
   constructor() { }
 
-  ngOnInit(): void {
-    Pvjs.loadDiagram('#pathway', 'WP' + this.WPId, {
+  loadDiagram(WPId: number) {
+    if (! WPId) { return; }
+
+    Pvjs.loadDiagram('#pathway', 'WP' + WPId, {
       width: '100%',
       height: '100%'
     }, instance => {
       this.pathwayInstance.emit(instance);
     });
   }
-
 }

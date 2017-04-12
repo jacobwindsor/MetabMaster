@@ -16,6 +16,7 @@ export class PathwayCreateComponent implements OnInit {
   @ViewChild('pathwayWrapper') pathwayElem;
   private pathwayInstance: any;
   entities: {id: string, text: string}[] = []; // List of the entity IDs
+  WPId: number;
 
   pathwayForm = new FormGroup({
     WPId: new FormControl('', Validators.required),
@@ -34,7 +35,34 @@ export class PathwayCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.renderPathway();
+    const WPIdControl = this.pathwayForm.get('WPId');
+
+    WPIdControl.valueChanges
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .subscribe((value: string) => {
+        if (value && value.length > 0) {
+          this.entities = [];
+          this.WPId = parseInt(value, 10);
+        }
+      });
+  }
+
+  pathwayLoaded(instance: any) {
+    instance.ready.subscribe(ready => {
+      if (ready) {
+        this.entities = instance.manipulator.getEntities()
+          .filter(entity => entity.kaavioType === 'Node') // Only do Nodes for now
+          .filter(entity => entity.textContent) // Only show those with text (Metabolites/Genes/Rna)
+          .map(entity => {
+            return {
+              id: entity.id,
+              text: entity.textContent
+            };
+          });
+        this.renderEntitySearch();
+      }
+    });
   }
 
   renderEntitySearch() {
@@ -46,41 +74,6 @@ export class PathwayCreateComponent implements OnInit {
         }
       })
       .map(val => val ? this.filter(val) : this.entities.slice());
-  }
-
-  renderPathway() {
-    const WPIdControl = this.pathwayForm.get('WPId');
-
-    WPIdControl.valueChanges
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .subscribe((value: string) => {
-        if (value && value.length > 0) {
-          this.entities = [];
-          this.pathwayElem.nativeElement.innerHTML = '';
-          Pvjs.loadDiagram('#pathway', 'WP' + value, {
-            width: '100%',
-            height: '100%'
-          }, instance => {
-            this.pathwayInstance = instance;
-            instance.ready.subscribe(ready => {
-              if (ready) {
-                this.entities = instance.manipulator.getEntities()
-                  .filter(entity => entity.kaavioType === 'Node') // Only do Nodes for now
-                  .filter(entity => entity.textContent) // Only show those with text (Metabolites/Genes/Rna)
-                  .map(entity => {
-                    return {
-                      id: entity.id,
-                      text: entity.textContent
-                    };
-                  });
-
-                this.renderEntitySearch();
-              }
-            });
-          });
-        }
-      });
   }
 
   savePathway() {
