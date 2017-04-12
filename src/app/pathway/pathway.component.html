@@ -4,6 +4,20 @@
   <div class="col">
     <h1>{{title}}</h1>
     <div [innerHTML]="description"></div>
+    <div class="row">
+      <div class="col">
+        <p>
+          <a [routerLink]="['update']" md-button>
+            <md-icon>create</md-icon>
+            Update
+          </a>
+          <button md-button (click)="destroy()">
+            <md-icon>delete</md-icon>
+            Delete
+          </button>
+        </p>
+      </div>
+    </div>
   </div>
   <div class="col">
     <app-diagram WPId="{{WPId}}" (pathwayInstance)="pathwayLoaded($event)"></app-diagram>

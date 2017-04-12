@@ -4,6 +4,8 @@ import {PathwayService} from "../pathway.service";
 import * as Showdown from 'showdown';
 import {DomSanitizer} from "@angular/platform-browser";
 import {getShowdown} from '@wikipathways/kaavio-showdown';
+import {MdDialog} from "@angular/material";
+import {PathwayDeleteDialogComponent} from "../pathway-delete-dialog/pathway-delete-dialog.component";
 
 // TODO: Track https://github.com/furqanZafar/react-selectize/pull/130 and add back when can compile
 // import {Pvjs} from 'pvjs';
@@ -21,8 +23,10 @@ export class PathwayComponent implements OnInit {
   private rawDescription: string; // Not parsed from Markdown
   description: string;
   WPId: number;
+  private id: string;
 
-  constructor(private route: ActivatedRoute, public pathwayService: PathwayService, private sanitizer: DomSanitizer) { }
+  constructor(private route: ActivatedRoute, public pathwayService: PathwayService,
+              private sanitizer: DomSanitizer, private dialog: MdDialog) { }
 
   ngOnInit(): void {
     this.retrievingData = true;
@@ -30,6 +34,7 @@ export class PathwayComponent implements OnInit {
 
     this.route.params.subscribe((params: Params) => {
       const id = params.id;
+      this.id = id;
       this.pathwayService.get(id).subscribe(pathway => {
         this.title = pathway.title;
         this.WPId = pathway.WPId;
@@ -44,5 +49,14 @@ export class PathwayComponent implements OnInit {
     const converter = new showdown.Converter({extensions: ['kaavio']});
     this.description = this.sanitizer.bypassSecurityTrustHtml(converter.makeHtml(this.rawDescription)) as string;
     this.pathwayLoading = false;
+  }
+
+  destroy(): void {
+    this.dialog.open(PathwayDeleteDialogComponent)
+      .afterClosed().subscribe(result => {
+        if (result.confirmed) {
+          this.pathwayService.destroy(this.id);
+        }
+    });
   }
 }
