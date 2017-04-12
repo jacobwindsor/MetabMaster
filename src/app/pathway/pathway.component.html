@@ -4,8 +4,22 @@
   <div class="col">
     <app-interactive-description [markdown]="markdown" [pathwayInstance]="pathwayInstance"
                                  [title]="title"></app-interactive-description>
+    <div class="row">
+      <div class="col">
+        <p>
+          <a [routerLink]="['update']" md-button>
+            <md-icon>create</md-icon>
+            Update
+          </a>
+          <button md-button (click)="destroy()">
+            <md-icon>delete</md-icon>
+            Delete
+          </button>
+        </p>
+      </div>
+    </div>
   </div>
   <div class="col">
-    <app-diagram WPId="{{WPId}}" (pathwayInstance)="pathwayLoaded($event)"></app-diagram>
+    <app-diagram [WPId]="WPId" (pathwayInstance)="pathwayLoaded($event)"></app-diagram>
   </div>
 </div>
