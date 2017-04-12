@@ -3,6 +3,12 @@ node_js:
   - "iojs"
   - "7"
 
+before_install:
+  - npm install -g @angular/cli
+
+script:
+  - npm run build
+
 deploy:
   provide: pages
   skip_cleanup: true
