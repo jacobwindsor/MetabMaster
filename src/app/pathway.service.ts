@@ -57,8 +57,8 @@ export class PathwayService {
    * Delete a pathway
    * @param id
    */
-  destroy(id: string): void {
-    this.fb.db.ref('pathways/' + id).remove();
+  destroy(id: string): Promise<any> {
+    return this.fb.db.ref('pathways/' + id).remove();
   }
 
   /**

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PathwayService} from "../pathway.service";
 import * as Showdown from 'showdown';
 import {DomSanitizer} from "@angular/platform-browser";
@@ -26,7 +26,7 @@ export class PathwayComponent implements OnInit {
   private id: string;
 
   constructor(private route: ActivatedRoute, public pathwayService: PathwayService,
-              private sanitizer: DomSanitizer, private dialog: MdDialog) { }
+              private sanitizer: DomSanitizer, private dialog: MdDialog, public router: Router) { }
 
   ngOnInit(): void {
     this.retrievingData = true;
@@ -55,7 +55,9 @@ export class PathwayComponent implements OnInit {
     this.dialog.open(PathwayDeleteDialogComponent)
       .afterClosed().subscribe(result => {
         if (result.confirmed) {
-          this.pathwayService.destroy(this.id);
+          this.pathwayService.destroy(this.id).then(_ => {
+            this.router.navigate(['']);
+          });
         }
     });
   }
