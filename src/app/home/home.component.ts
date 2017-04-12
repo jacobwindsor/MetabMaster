@@ -16,7 +16,8 @@ export class HomeComponent implements OnInit {
       const newPathways = pathways.map(pathway => {
         return {
           title: pathway.title,
-          id: pathway.id
+          id: pathway.id,
+          image: this.pathwayService.staticImageUrlFromWPId(pathway.WPId)
         };
       });
       this.pathways = this.pathways.concat(newPathways);

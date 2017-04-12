@@ -5,14 +5,15 @@ import {Observable} from "rxjs/Rx";
 @Injectable()
 export class PathwayService {
 
-  constructor(public fb: FirebaseService) { }
+  constructor(public fb: FirebaseService) {
+  }
 
   /**
    * Create a pathway
    * @param WPId - The ID for the WikiPathways pathway. Exclude the 'WP'. E.g. use 78 for TCA cycle
    * @param values
    */
-  create(values: {WPId: number, title: string, description: string, userId: string}): Promise<any> {
+  create(values: { WPId: number, title: string, description: string, userId: string }): Promise<any> {
     const ref = this.fb.db.ref('pathways').push();
     return new Promise((resolve, reject) => {
       ref.set(values)
@@ -26,7 +27,7 @@ export class PathwayService {
    * @param id
    * @returns {Observable}
    */
-  get(id: string): Observable<{id: string, WPId: number, title: string, description: string, userId: string}> {
+  get(id: string): Observable<{ id: string, WPId: number, title: string, description: string, userId: string }> {
     return Observable.fromPromise(new Promise((resolve, reject) => {
       this.fb.db.ref('pathways/' + id).once('value').then(snapshot => {
         const val = snapshot.val();
@@ -48,7 +49,7 @@ export class PathwayService {
    * @param id
    * @param updates
    */
-  update(id: string, updates: {title: string, description: string}): Promise<any> {
+  update(id: string, updates: { title: string, description: string }): Promise<any> {
     return this.fb.db.ref('pathways/' + id).update(updates);
   }
 
@@ -66,7 +67,7 @@ export class PathwayService {
    * @param startAt - The id to start at (inclusive)
    * @returns {Observable}
    */
-  list(limit = 25, startAt?): Observable<{id: string, WPId: number, title: string, description: string, userId: string}[]> {
+  list(limit = 25, startAt?): Observable<{ id: string, WPId: number, title: string, description: string, userId: string }[]> {
     return Observable.create(observer => {
       const ref = this.fb.db.ref('pathways').orderByKey().limitToFirst(limit);
       if (startAt) {
@@ -90,5 +91,14 @@ export class PathwayService {
         observer.next(returnVal);
       });
     });
+  }
+
+  /**
+   * Get the static image URL from a WikiPathways ID
+   * @param WPId
+   * @returns {string}
+   */
+  staticImageUrlFromWPId(WPId: number): string {
+    return `http://www.wikipathways.org/wpi/wpi.php?action=downloadFile&type=png&pwTitle=Pathway:WP${WPId}`;
   }
 }
