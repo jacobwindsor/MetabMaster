@@ -60,6 +60,7 @@ export class PathwayEditComponent implements OnInit {
   pathwayLoaded(instance: any) {
     instance.ready.subscribe(ready => {
       if (ready) {
+        this.pathwayInstance = instance;
         this.entities = instance.manipulator.getEntities()
           .filter(entity => entity.kaavioType === 'Node') // Only do Nodes for now
           .filter(entity => entity.textContent) // Only show those with text (Metabolites/Genes/Rna)
@@ -83,7 +84,7 @@ export class PathwayEditComponent implements OnInit {
       .do(val => {
         const toHighlight = this.entities.find(entity => entity.id === val);
         if (toHighlight) {
-          this.pathwayInstance.manipulator.highlightOn(toHighlight.id, 'red');
+          this.pathwayInstance.manipulator.reset().highlightOn(toHighlight.id, 'red');
         }
       })
       .map(val => val ? this.filter(val) : this.entities.slice());
