@@ -1,9 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PathwayService} from "../pathway.service";
-import * as Showdown from 'showdown';
-import {DomSanitizer} from "@angular/platform-browser";
-import {getShowdown} from '@wikipathways/kaavio-showdown';
 import {MdDialog} from "@angular/material";
 import {PathwayDeleteDialogComponent} from "../pathway-delete-dialog/pathway-delete-dialog.component";
 
@@ -19,14 +16,15 @@ declare var Pvjs: any;
 export class PathwayComponent implements OnInit {
   retrievingData: boolean;
   pathwayLoading: boolean;
+  pathwayInstance: any; // TODO: set to Pvjs
   title: string;
-  private rawDescription: string; // Not parsed from Markdown
+  markdown: string; // Not parsed from Markdown
   description: string;
   WPId: number;
   private id: string;
 
   constructor(private route: ActivatedRoute, public pathwayService: PathwayService,
-              private sanitizer: DomSanitizer, private dialog: MdDialog) { }
+              private dialog: MdDialog, public router: Router) { }
 
   ngOnInit(): void {
     this.retrievingData = true;
@@ -38,16 +36,14 @@ export class PathwayComponent implements OnInit {
       this.pathwayService.get(id).subscribe(pathway => {
         this.title = pathway.title;
         this.WPId = pathway.WPId;
-        this.rawDescription = pathway.description;
+        this.markdown = pathway.description;
         this.retrievingData = false;
       });
     });
   }
 
   pathwayLoaded(pathwayInstance: any) {
-    const showdown = getShowdown(pathwayInstance);
-    const converter = new showdown.Converter({extensions: ['kaavio']});
-    this.description = this.sanitizer.bypassSecurityTrustHtml(converter.makeHtml(this.rawDescription)) as string;
+    this.pathwayInstance = pathwayInstance;
     this.pathwayLoading = false;
   }
 
@@ -55,7 +51,9 @@ export class PathwayComponent implements OnInit {
     this.dialog.open(PathwayDeleteDialogComponent)
       .afterClosed().subscribe(result => {
         if (result.confirmed) {
-          this.pathwayService.destroy(this.id);
+          this.pathwayService.destroy(this.id).then(_ => {
+            this.router.navigate(['']);
+          });
         }
     });
   }

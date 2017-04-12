@@ -2,8 +2,8 @@
 
 <div class="row" *ngIf="! retrievingData">
   <div class="col">
-    <h1>{{title}}</h1>
-    <div [innerHTML]="description"></div>
+    <app-interactive-description [markdown]="markdown" [pathwayInstance]="pathwayInstance"
+                                 [title]="title"></app-interactive-description>
     <div class="row">
       <div class="col">
         <p>
@@ -20,6 +20,6 @@
     </div>
   </div>
   <div class="col">
-    <app-diagram WPId="{{WPId}}" (pathwayInstance)="pathwayLoaded($event)"></app-diagram>
+    <app-diagram [WPId]="WPId" (pathwayInstance)="pathwayLoaded($event)"></app-diagram>
   </div>
 </div>

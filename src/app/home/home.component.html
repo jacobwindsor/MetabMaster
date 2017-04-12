@@ -1,5 +1,12 @@
+<div class="row" *ngIf="! pathways || pathways.length < 1">
+  <div class="col">
+    <h1 class="text-center">No pathway stories :(</h1>
+    <p class="text-center"><a [routerLink]="['pathway/create']">Create one!</a></p>
+  </div>
+</div>
+
 <div class="row">
-  <div class="col-md-4 col-xs-12" *ngFor="let pathway of pathways">
+  <div class="col-md-4 col-xs-12 mb-3" *ngFor="let pathway of pathways">
     <md-card>
       <img md-card-lg-image src="{{pathway.image}}" class="pathway-image">
       <md-card-title>

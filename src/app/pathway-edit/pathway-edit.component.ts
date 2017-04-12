@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Rx";
 import {PathwayService} from "../pathway.service";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
+import {UniversalValidators} from 'ng2-validators'
 
 @Component({
   selector: 'app-pathway-edit',
@@ -21,11 +22,11 @@ export class PathwayEditComponent implements OnInit {
 
   @ViewChild('pathwayWrapper') pathwayElem;
 
-  private pathwayInstance: any;
+  pathwayInstance: any;
   entities: {id: string, text: string}[] = []; // List of the entity IDs
 
   pathwayForm = new FormGroup({
-    WPId: new FormControl('', Validators.required),
+    WPId: new FormControl('', Validators.compose([Validators.required, UniversalValidators.isNumber])),
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required)
   });
@@ -45,7 +46,6 @@ export class PathwayEditComponent implements OnInit {
     });
 
     const WPIdControl = this.pathwayForm.get('WPId');
-
     WPIdControl.valueChanges
       .debounceTime(300)
       .distinctUntilChanged()
@@ -55,11 +55,30 @@ export class PathwayEditComponent implements OnInit {
           this.WPId = parseInt(value, 10);
         }
       });
+
+    // TODO: refactor this code to just use one ngOnChanges
+    // See https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#parent-to-child-on-changes
+    const titleControl = this.pathwayForm.get('title');
+    titleControl.valueChanges
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .subscribe((value: string) => {
+        this.title = value;
+      });
+
+    const descriptionControl = this.pathwayForm.get('description');
+    descriptionControl.valueChanges
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .subscribe((value: string) => {
+        this.description = value;
+      });
   }
 
   pathwayLoaded(instance: any) {
     instance.ready.subscribe(ready => {
       if (ready) {
+        this.pathwayInstance = instance;
         this.entities = instance.manipulator.getEntities()
           .filter(entity => entity.kaavioType === 'Node') // Only do Nodes for now
           .filter(entity => entity.textContent) // Only show those with text (Metabolites/Genes/Rna)
@@ -83,7 +102,7 @@ export class PathwayEditComponent implements OnInit {
       .do(val => {
         const toHighlight = this.entities.find(entity => entity.id === val);
         if (toHighlight) {
-          this.pathwayInstance.manipulator.highlightOn(toHighlight.id, 'red');
+          this.pathwayInstance.manipulator.reset().highlightOn(toHighlight.id, 'red');
         }
       })
       .map(val => val ? this.filter(val) : this.entities.slice());

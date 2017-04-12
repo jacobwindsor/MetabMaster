@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../auth.service";
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from "@angular/router";
-import {PasswordValidators, EmailValidators} from 'ng2-validators'
+import {PasswordValidators, EmailValidators} from 'ng2-validators';
 
 @Component({
   selector: 'app-sign-up-or-sign-in',
