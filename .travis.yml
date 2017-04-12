@@ -7,7 +7,7 @@ before_install:
   - npm install -g @angular/cli
 
 script:
-  - npm run build
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run build:prod; else npm run build; fi;
 
 deploy:
   provider: pages
