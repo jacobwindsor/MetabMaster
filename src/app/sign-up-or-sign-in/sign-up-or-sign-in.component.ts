@@ -31,6 +31,7 @@ export class SignUpOrSignInComponent implements OnInit {
       Validators.required,
       PasswordValidators.repeatCharacterRegexRule(4)
     ])),
+    // TODO: add password match validation
     password2: new FormControl('', Validators.compose([
       Validators.required
     ]))
