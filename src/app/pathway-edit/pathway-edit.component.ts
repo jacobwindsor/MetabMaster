@@ -37,6 +37,13 @@ export class PathwayEditComponent implements OnInit {
   constructor(public pathwayService: PathwayService, public auth: AuthService, public router: Router) { }
 
   ngOnInit() {
+    // Set the initial form values if specified
+    this.pathwayForm.setValue({
+      WPId: this.WPId || '',
+      title: this.title || '',
+      description: this.description || ''
+    });
+
     const WPIdControl = this.pathwayForm.get('WPId');
 
     WPIdControl.valueChanges

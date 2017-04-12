@@ -49,7 +49,7 @@ export class PathwayService {
    * @param id
    * @param updates
    */
-  update(id: string, updates: { title: string, description: string }): Promise<any> {
+  update(id: string, updates: {WPId: number, title: string, description: string }): Promise<any> {
     return this.fb.db.ref('pathways/' + id).update(updates);
   }
 

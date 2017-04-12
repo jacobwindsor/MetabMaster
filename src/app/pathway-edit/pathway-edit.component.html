@@ -3,12 +3,12 @@
     <form class="container" [formGroup]="pathwayForm">
       <div class="row">
         <md-input-container class="input">
-          <input mdInput placeholder="WikiPathways ID" type="text" formControlName="WPId" value="{{WPId}}">
+          <input mdInput placeholder="WikiPathways ID" type="text" formControlName="WPId">
         </md-input-container>
       </div>
       <div class="row">
         <md-input-container class="input">
-          <input mdInput placeholder="Title" type="text" formControlName="title" value="{{title}}">
+          <input mdInput placeholder="Title" type="text" formControlName="title">
         </md-input-container>
       </div>
       <div class="row">
@@ -18,9 +18,7 @@
           </a>
         </p>
         <md-input-container class="input">
-          <textarea mdInput placeholder="Interactive description" formControlName="description" rows="10">
-            {{description}}
-          </textarea>
+          <textarea mdInput placeholder="Interactive description" formControlName="description" rows="10"></textarea>
         </md-input-container>
       </div>
       <div class="row">
