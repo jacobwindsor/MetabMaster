@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "iojs"
+  - "7"
+
+deploy:
+  provide: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
+  fqdn: metabmaster.jcbwndsr.com
+  project_name: MetabMaster
+  local_dir: dist
