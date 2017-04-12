@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Rx";
 import {PathwayService} from "../pathway.service";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
+import {UniversalValidators} from 'ng2-validators'
 
 @Component({
   selector: 'app-pathway-edit',
@@ -25,7 +26,7 @@ export class PathwayEditComponent implements OnInit {
   entities: {id: string, text: string}[] = []; // List of the entity IDs
 
   pathwayForm = new FormGroup({
-    WPId: new FormControl('', Validators.required),
+    WPId: new FormControl('', Validators.compose([Validators.required, UniversalValidators.isNumber])),
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required)
   });

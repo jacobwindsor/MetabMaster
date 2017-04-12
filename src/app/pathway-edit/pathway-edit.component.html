@@ -5,6 +5,9 @@
         <md-input-container class="input">
           <input mdInput placeholder="WikiPathways ID" type="text" formControlName="WPId">
         </md-input-container>
+        <p style="color: red; font-size: .9rem" *ngIf="!pathwayForm.get('WPId').pristine && !! pathwayForm.get('WPId').errors" class="error">
+          Please enter a valid WikiPathways ID. Only include the number, excluding the 'WP' part.
+        </p>
       </div>
       <div class="row">
         <md-input-container class="input">
