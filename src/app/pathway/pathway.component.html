@@ -1,11 +1,11 @@
-<div class="row">
+<md-progress-spinner mode="indeterminate" class="loading-spinner" *ngIf="retrievingData"></md-progress-spinner>
+
+<div class="row" *ngIf="! retrievingData">
   <div class="col">
     <h1>{{title}}</h1>
-    <div [innerHTML]="description">
-
-    </div>
+    <div [innerHTML]="description"></div>
   </div>
   <div class="col">
-    <div id="pathway" #pathway></div>
+    <app-diagram WPId="{{WPId}}" (pathwayInstance)="pathwayLoaded($event)"></app-diagram>
   </div>
 </div>

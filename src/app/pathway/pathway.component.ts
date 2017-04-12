@@ -10,35 +10,39 @@ import {getShowdown} from '@wikipathways/kaavio-showdown';
 declare var Pvjs: any;
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-pathway',
   templateUrl: './pathway.component.html',
   styleUrls: ['./pathway.component.css']
 })
 export class PathwayComponent implements OnInit {
-  @ViewChild('pathway') pathwayElem;
-  pathwayInstance: any;
+  retrievingData: boolean;
+  pathwayLoading: boolean;
   title: string;
+  private rawDescription: string; // Not parsed from Markdown
   description: string;
+  WPId: number;
 
   constructor(private route: ActivatedRoute, public pathwayService: PathwayService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+    this.retrievingData = true;
+    this.pathwayLoading = true;
 
     this.route.params.subscribe((params: Params) => {
       const id = params.id;
       this.pathwayService.get(id).subscribe(pathway => {
         this.title = pathway.title;
-
-        Pvjs.loadDiagram('#pathway', 'WP' + pathway.WPId, {
-          width: '100%',
-          height: '100%'
-        }, instance => {
-          this.pathwayInstance = instance;
-          const showdown = getShowdown(instance);
-          const converter = new showdown.Converter({extensions: ['kaavio']});
-          this.description = this.sanitizer.bypassSecurityTrustHtml(converter.makeHtml(pathway.description)) as string;
-        });
+        this.WPId = pathway.WPId;
+        this.rawDescription = pathway.description;
+        this.retrievingData = false;
       });
     });
+  }
+
+  pathwayLoaded(pathwayInstance: any) {
+    const showdown = getShowdown(pathwayInstance);
+    const converter = new showdown.Converter({extensions: ['kaavio']});
+    this.description = this.sanitizer.bypassSecurityTrustHtml(converter.makeHtml(this.rawDescription)) as string;
+    this.pathwayLoading = false;
   }
 }

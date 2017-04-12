@@ -17,6 +17,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PathwayCreateComponent } from './pathway-create/pathway-create.component';
 import {AuthGuard} from "./auth.guard";
 import { HomeComponent } from './home/home.component';
+import { DiagramComponent } from './diagram/diagram.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HomeComponent } from './home/home.component';
     PathwayListComponent,
     SignUpOrSignInComponent,
     PathwayCreateComponent,
-    HomeComponent
+    HomeComponent,
+    DiagramComponent
   ],
   imports: [
     routes,
