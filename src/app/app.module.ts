@@ -18,6 +18,7 @@ import { PathwayCreateComponent } from './pathway-create/pathway-create.componen
 import {AuthGuard} from "./auth.guard";
 import { HomeComponent } from './home/home.component';
 import { DiagramComponent } from './diagram/diagram.component';
+import { PathwayEditComponent } from './pathway-edit/pathway-edit.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DiagramComponent } from './diagram/diagram.component';
     SignUpOrSignInComponent,
     PathwayCreateComponent,
     HomeComponent,
-    DiagramComponent
+    DiagramComponent,
+    PathwayEditComponent
   ],
   imports: [
     routes,
