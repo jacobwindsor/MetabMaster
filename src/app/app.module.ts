@@ -21,6 +21,7 @@ import { DiagramComponent } from './diagram/diagram.component';
 import { PathwayEditComponent } from './pathway-edit/pathway-edit.component';
 import { PathwayUpdateComponent } from './pathway-update/pathway-update.component';
 import { PathwayDeleteDialogComponent } from './pathway-delete-dialog/pathway-delete-dialog.component';
+import { InteractiveDescriptionComponent } from './interactive-description/interactive-description.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { PathwayDeleteDialogComponent } from './pathway-delete-dialog/pathway-de
     DiagramComponent,
     PathwayEditComponent,
     PathwayUpdateComponent,
-    PathwayDeleteDialogComponent
+    PathwayDeleteDialogComponent,
+    InteractiveDescriptionComponent
   ],
   entryComponents: [
     PathwayDeleteDialogComponent
