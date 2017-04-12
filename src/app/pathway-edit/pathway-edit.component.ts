@@ -22,7 +22,7 @@ export class PathwayEditComponent implements OnInit {
 
   @ViewChild('pathwayWrapper') pathwayElem;
 
-  private pathwayInstance: any;
+  pathwayInstance: any;
   entities: {id: string, text: string}[] = []; // List of the entity IDs
 
   pathwayForm = new FormGroup({
@@ -46,7 +46,6 @@ export class PathwayEditComponent implements OnInit {
     });
 
     const WPIdControl = this.pathwayForm.get('WPId');
-
     WPIdControl.valueChanges
       .debounceTime(300)
       .distinctUntilChanged()
@@ -55,6 +54,24 @@ export class PathwayEditComponent implements OnInit {
           this.entities = [];
           this.WPId = parseInt(value, 10);
         }
+      });
+
+    // TODO: refactor this code to just use one ngOnChanges
+    // See https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#parent-to-child-on-changes
+    const titleControl = this.pathwayForm.get('title');
+    titleControl.valueChanges
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .subscribe((value: string) => {
+        this.title = value;
+      });
+
+    const descriptionControl = this.pathwayForm.get('description');
+    descriptionControl.valueChanges
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .subscribe((value: string) => {
+        this.description = value;
       });
   }
 

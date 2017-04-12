@@ -7,7 +7,7 @@ import {DomSanitizer} from "@angular/platform-browser";
   templateUrl: './interactive-description.component.html',
   styleUrls: ['./interactive-description.component.scss']
 })
-export class InteractiveDescriptionComponent {
+export class InteractiveDescriptionComponent implements OnInit {
 
   @Input() pathwayInstance: any; // TODO: set type to Pvjs
   @Input() set markdown(markdown: string){ this.parseMarkdown(markdown); }; // The markdown to parse
@@ -16,6 +16,10 @@ export class InteractiveDescriptionComponent {
   description: string;
 
   constructor(private sanitizer: DomSanitizer) { }
+
+  ngOnInit(): void {
+    this.description = '';
+  }
 
   parseMarkdown(markdown: string): void {
     const showdown = getShowdown(this.pathwayInstance);
