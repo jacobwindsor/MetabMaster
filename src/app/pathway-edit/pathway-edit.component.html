@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-6">
+    <form class="container" [formGroup]="pathwayForm">
+      <div class="row">
+        <md-input-container class="input">
+          <input mdInput placeholder="WikiPathways ID" type="text" formControlName="WPId">
+        </md-input-container>
+      </div>
+      <div class="row">
+        <md-input-container class="input">
+          <input mdInput placeholder="Title" type="text" formControlName="title">
+        </md-input-container>
+      </div>
+      <div class="row">
+        <p class="text-muted" style="font-size:.8rem"><strong>Tip!</strong> Use Markdown for interactive links.
+          <a href="https://jacobwindsor.github.io/kaavio-showdown/writers" target="_blank">
+            Click here for help
+          </a>
+        </p>
+        <md-input-container class="input">
+          <textarea mdInput placeholder="Interactive description" formControlName="description" rows="10"></textarea>
+        </md-input-container>
+      </div>
+      <div class="row">
+        <button md-button (click)="save()">Save</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-6">
+    <div *ngIf="entities.length > 0">
+      <md-input-container class="input">
+        <input type="text" mdInput [formControl]="entitySearchControl" [mdAutocomplete]="auto" placeholder="Search for a pathway element">
+      </md-input-container>
+
+      <md-autocomplete #auto="mdAutocomplete" class="input">
+        <md-option *ngFor="let entity of filteredEntities | async" [value]="entity.id" class="input">
+          {{entity.text}} ({{entity.id}})
+        </md-option>
+      </md-autocomplete>
+    </div>
+
+    <app-diagram WPId="{{WPId}}" (pathwayInstance)="pathwayLoaded($event)"></app-diagram>
+  </div>
+</div>

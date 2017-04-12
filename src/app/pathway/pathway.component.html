@@ -1,11 +1,25 @@
-<div class="row">
+<md-progress-spinner mode="indeterminate" class="loading-spinner" *ngIf="retrievingData"></md-progress-spinner>
+
+<div class="row" *ngIf="! retrievingData">
   <div class="col">
     <h1>{{title}}</h1>
-    <div [innerHTML]="description">
-
+    <div [innerHTML]="description"></div>
+    <div class="row">
+      <div class="col">
+        <p>
+          <a [routerLink]="['update']" md-button>
+            <md-icon>create</md-icon>
+            Update
+          </a>
+          <button md-button (click)="destroy()">
+            <md-icon>delete</md-icon>
+            Delete
+          </button>
+        </p>
+      </div>
     </div>
   </div>
   <div class="col">
-    <div id="pathway" #pathway></div>
+    <app-diagram WPId="{{WPId}}" (pathwayInstance)="pathwayLoaded($event)"></app-diagram>
   </div>
 </div>

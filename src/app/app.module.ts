@@ -17,6 +17,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PathwayCreateComponent } from './pathway-create/pathway-create.component';
 import {AuthGuard} from "./auth.guard";
 import { HomeComponent } from './home/home.component';
+import { DiagramComponent } from './diagram/diagram.component';
+import { PathwayEditComponent } from './pathway-edit/pathway-edit.component';
+import { PathwayUpdateComponent } from './pathway-update/pathway-update.component';
+import { PathwayDeleteDialogComponent } from './pathway-delete-dialog/pathway-delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,14 @@ import { HomeComponent } from './home/home.component';
     PathwayListComponent,
     SignUpOrSignInComponent,
     PathwayCreateComponent,
-    HomeComponent
+    HomeComponent,
+    DiagramComponent,
+    PathwayEditComponent,
+    PathwayUpdateComponent,
+    PathwayDeleteDialogComponent
+  ],
+  entryComponents: [
+    PathwayDeleteDialogComponent
   ],
   imports: [
     routes,
