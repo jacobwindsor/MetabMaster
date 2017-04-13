@@ -11,7 +11,7 @@ export class PathwayUpdateComponent implements OnInit {
   loading: boolean;
   title: string;
   WPId: number;
-  description: string;
+  markdown: string;
   private id: string;
   private userId: string;
 
@@ -24,9 +24,10 @@ export class PathwayUpdateComponent implements OnInit {
       const id: string = params.id;
       this.id = id;
       this.pathwayService.get(id).subscribe(pathway => {
+        console.log(pathway);
         this.title = pathway.title;
         this.WPId = pathway.WPId;
-        this.description = pathway.description;
+        this.markdown = pathway.description;
         this.userId = pathway.userId;
         this.loading = false;
       });

@@ -4,7 +4,7 @@ import {Observable} from "rxjs/Rx";
 import {PathwayService} from "../pathway.service";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
-import {UniversalValidators} from 'ng2-validators'
+import {UniversalValidators} from 'ng2-validators';
 
 @Component({
   selector: 'app-pathway-edit',
@@ -14,7 +14,7 @@ import {UniversalValidators} from 'ng2-validators'
 export class PathwayEditComponent implements OnInit {
   // Initial values
   @Input() WPId: number;
-  @Input() description: string;
+  @Input() markdown: string;
   @Input() title: string;
 
   // Emit when saved with form values
@@ -28,7 +28,7 @@ export class PathwayEditComponent implements OnInit {
   pathwayForm = new FormGroup({
     WPId: new FormControl('', Validators.compose([Validators.required, UniversalValidators.isNumber])),
     title: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required)
+    markdown: new FormControl('', Validators.required)
   });
 
   entitySearchControl = new FormControl();
@@ -42,7 +42,7 @@ export class PathwayEditComponent implements OnInit {
     this.pathwayForm.setValue({
       WPId: this.WPId || '',
       title: this.title || '',
-      description: this.description || ''
+      markdown: this.markdown || ''
     });
 
     const WPIdControl = this.pathwayForm.get('WPId');
@@ -66,12 +66,12 @@ export class PathwayEditComponent implements OnInit {
         this.title = value;
       });
 
-    const descriptionControl = this.pathwayForm.get('description');
+    const descriptionControl = this.pathwayForm.get('markdown');
     descriptionControl.valueChanges
       .debounceTime(300)
       .distinctUntilChanged()
       .subscribe((value: string) => {
-        this.description = value;
+        this.markdown = value;
       });
   }
 

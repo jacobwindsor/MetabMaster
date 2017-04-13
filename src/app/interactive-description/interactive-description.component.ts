@@ -7,24 +7,20 @@ import {DomSanitizer} from "@angular/platform-browser";
   templateUrl: './interactive-description.component.html',
   styleUrls: ['./interactive-description.component.scss']
 })
-export class InteractiveDescriptionComponent implements OnInit {
-
-  @Input() pathwayInstance: any; // TODO: set type to Pvjs
-  @Input() set markdown(markdown: string){ this.parseMarkdown(markdown); }; // The markdown to parse
-  @Input() title: string;
+export class InteractiveDescriptionComponent {
 
   description: string;
 
+  @Input() pathwayInstance: any; // TODO: set type to Pvjs
+  @Input() set markdown (markdown: string){ this.parseMarkdown(markdown); };
+  @Input() title: string;
+
+  showdown = getShowdown(this.pathwayInstance);
+  converter = new this.showdown.Converter({extensions: ['kaavio']});
+
   constructor(private sanitizer: DomSanitizer) { }
 
-  ngOnInit(): void {
-    this.description = '';
-  }
-
   parseMarkdown(markdown: string): void {
-    const showdown = getShowdown(this.pathwayInstance);
-    const converter = new showdown.Converter({extensions: ['kaavio']});
-    this.description = this.sanitizer.bypassSecurityTrustHtml(converter.makeHtml(markdown)) as string;
+    this.description = <string>this.sanitizer.bypassSecurityTrustHtml(this.converter.makeHtml(markdown));
   }
-
 }

@@ -19,7 +19,6 @@ export class PathwayComponent implements OnInit {
   pathwayInstance: any; // TODO: set to Pvjs
   title: string;
   markdown: string; // Not parsed from Markdown
-  description: string;
   WPId: number;
   private id: string;
 

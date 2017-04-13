@@ -23,7 +23,7 @@
               </a>
             </p>
             <md-input-container class="input">
-              <textarea mdInput placeholder="Interactive description" formControlName="description" rows="10"></textarea>
+              <textarea mdInput placeholder="Interactive description" formControlName="markdown" rows="10"></textarea>
             </md-input-container>
           </div>
           <div class="row">
@@ -33,7 +33,7 @@
       </md-tab>
       <md-tab label="Preview">
         <div class="mt-3">
-          <app-interactive-description [title]="title" [markdown]="description"
+          <app-interactive-description [title]="title" [markdown]="markdown"
                                        [pathwayInstance]="pathwayInstance"></app-interactive-description>
         </div>
       </md-tab>
