@@ -38,7 +38,7 @@ export class PathwayUpdateComponent implements OnInit {
     this.pathwayService.update(this.id, {
       WPId: val.WPId,
       title: val.title,
-      description: val.description
+      description: val.markdown
     }).then(_ => {
       this.router.navigate(['/pathway', this.id]);
     });

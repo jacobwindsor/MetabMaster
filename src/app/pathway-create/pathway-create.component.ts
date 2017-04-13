@@ -25,7 +25,7 @@ export class PathwayCreateComponent implements OnInit {
     this.pathwayService.create({
       WPId: val.WPId,
       title: val.title,
-      description: val.description,
+      description: val.markdown,
       userId: this.auth.user.uid
     }).then(key => {
       this.router.navigate(['/pathway', key]);
