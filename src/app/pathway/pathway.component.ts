@@ -41,10 +41,13 @@ export class PathwayComponent implements OnInit {
     });
   }
 
-  pathwayLoaded(pathwayInstance: any) {
-    this.pathwayInstance = pathwayInstance;
-    this.pathwayLoading = false;
-  }
+  pathwayLoaded = (pathwayInstance: any) => {
+    pathwayInstance.ready.subscribe(ready => {
+      if (ready) {
+        this.pathwayInstance = pathwayInstance;
+      }
+    });
+  };
 
   destroy(): void {
     this.dialog.open(PathwayDeleteDialogComponent)
