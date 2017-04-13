@@ -20,8 +20,6 @@ export class PathwayEditComponent implements OnInit {
   // Emit when saved with form values
   @Output() onSave = new EventEmitter<any>(); // TODO: Add type of form values
 
-  @ViewChild('pathwayWrapper') pathwayElem;
-
   pathwayInstance: any;
   entities: {id: string, text: string}[] = []; // List of the entity IDs
 
@@ -75,7 +73,7 @@ export class PathwayEditComponent implements OnInit {
       });
   }
 
-  pathwayLoaded(instance: any) {
+  pathwayLoaded = (instance: any) => {
     instance.ready.subscribe(ready => {
       if (ready) {
         this.pathwayInstance = instance;
@@ -93,11 +91,12 @@ export class PathwayEditComponent implements OnInit {
     });
   }
 
-  filter(val: string): {id: string, text: string}[] {
+  filter = (val: string) => {
     return this.entities.filter(entity => new RegExp(val, 'gi').test(entity.id + entity.text));
   }
 
-  renderEntitySearch() {
+  renderEntitySearch = () => {
+    console.log(this.entities);
     this.filteredEntities = this.entitySearchControl.valueChanges
       .do(val => {
         const toHighlight = this.entities.find(entity => entity.id === val);
@@ -108,7 +107,7 @@ export class PathwayEditComponent implements OnInit {
       .map(val => val ? this.filter(val) : this.entities.slice());
   }
 
-  save() {
+  save = () => {
     // TODO: Only fire when form valid
     const formVal = this.pathwayForm.value;
     this.onSave.emit(formVal);

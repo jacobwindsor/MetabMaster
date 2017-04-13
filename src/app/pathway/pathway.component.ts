@@ -16,7 +16,7 @@ declare var Pvjs: any;
 export class PathwayComponent implements OnInit {
   retrievingData: boolean;
   pathwayLoading: boolean;
-  pathwayInstance: any; // TODO: set to Pvjs
+  pathwayInstance: any; // TODO: set type to Pvjs
   title: string;
   markdown: string; // Not parsed from Markdown
   WPId: number;
