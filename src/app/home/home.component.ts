@@ -8,10 +8,12 @@ import {PathwayService} from "../pathway.service";
 })
 export class HomeComponent implements OnInit {
   pathways: any = [];
+  loading: boolean;
 
   constructor(public pathwayService: PathwayService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.pathwayService.list().subscribe(pathways => {
       const newPathways = pathways.map(pathway => {
         return {
@@ -21,6 +23,7 @@ export class HomeComponent implements OnInit {
         };
       });
       this.pathways = this.pathways.concat(newPathways);
+      this.loading = false;
     });
   }
 
