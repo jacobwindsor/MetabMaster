@@ -4,7 +4,7 @@ import {Observable} from "rxjs/Rx";
 import {PathwayService} from "../pathway.service";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
-import {UniversalValidators} from 'ng2-validators'
+import {UniversalValidators} from 'ng2-validators';
 
 @Component({
   selector: 'app-pathway-edit',
@@ -14,13 +14,11 @@ import {UniversalValidators} from 'ng2-validators'
 export class PathwayEditComponent implements OnInit {
   // Initial values
   @Input() WPId: number;
-  @Input() description: string;
+  @Input() markdown: string;
   @Input() title: string;
 
   // Emit when saved with form values
   @Output() onSave = new EventEmitter<any>(); // TODO: Add type of form values
-
-  @ViewChild('pathwayWrapper') pathwayElem;
 
   pathwayInstance: any;
   entities: {id: string, text: string}[] = []; // List of the entity IDs
@@ -28,7 +26,7 @@ export class PathwayEditComponent implements OnInit {
   pathwayForm = new FormGroup({
     WPId: new FormControl('', Validators.compose([Validators.required, UniversalValidators.isNumber])),
     title: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required)
+    markdown: new FormControl('', Validators.required)
   });
 
   entitySearchControl = new FormControl();
@@ -42,7 +40,7 @@ export class PathwayEditComponent implements OnInit {
     this.pathwayForm.setValue({
       WPId: this.WPId || '',
       title: this.title || '',
-      description: this.description || ''
+      markdown: this.markdown || ''
     });
 
     const WPIdControl = this.pathwayForm.get('WPId');
@@ -66,16 +64,16 @@ export class PathwayEditComponent implements OnInit {
         this.title = value;
       });
 
-    const descriptionControl = this.pathwayForm.get('description');
+    const descriptionControl = this.pathwayForm.get('markdown');
     descriptionControl.valueChanges
       .debounceTime(300)
       .distinctUntilChanged()
       .subscribe((value: string) => {
-        this.description = value;
+        this.markdown = value;
       });
   }
 
-  pathwayLoaded(instance: any) {
+  pathwayLoaded = (instance: any) => {
     instance.ready.subscribe(ready => {
       if (ready) {
         this.pathwayInstance = instance;
@@ -93,11 +91,12 @@ export class PathwayEditComponent implements OnInit {
     });
   }
 
-  filter(val: string): {id: string, text: string}[] {
+  filter = (val: string) => {
     return this.entities.filter(entity => new RegExp(val, 'gi').test(entity.id + entity.text));
   }
 
-  renderEntitySearch() {
+  renderEntitySearch = () => {
+    console.log(this.entities);
     this.filteredEntities = this.entitySearchControl.valueChanges
       .do(val => {
         const toHighlight = this.entities.find(entity => entity.id === val);
@@ -108,7 +107,7 @@ export class PathwayEditComponent implements OnInit {
       .map(val => val ? this.filter(val) : this.entities.slice());
   }
 
-  save() {
+  save = () => {
     // TODO: Only fire when form valid
     const formVal = this.pathwayForm.value;
     this.onSave.emit(formVal);

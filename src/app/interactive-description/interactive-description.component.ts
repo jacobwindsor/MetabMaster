@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChange} from '@angular/core';
 import {getShowdown} from '@wikipathways/kaavio-showdown';
 import {DomSanitizer} from "@angular/platform-browser";
 
@@ -7,24 +7,43 @@ import {DomSanitizer} from "@angular/platform-browser";
   templateUrl: './interactive-description.component.html',
   styleUrls: ['./interactive-description.component.scss']
 })
-export class InteractiveDescriptionComponent implements OnInit {
+export class InteractiveDescriptionComponent implements OnChanges {
+
+  private _pathwayInstance: any; // TODO: set type to Pvjs
+  private _markdown: string;
+  description: string;
 
   @Input() pathwayInstance: any; // TODO: set type to Pvjs
-  @Input() set markdown(markdown: string){ this.parseMarkdown(markdown); }; // The markdown to parse
+  @Input() markdown: string;
   @Input() title: string;
 
-  description: string;
 
   constructor(private sanitizer: DomSanitizer) { }
 
-  ngOnInit(): void {
-    this.description = '';
-  }
+  ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+    const changeToMarkdown = changes['markdown'];
+    const changeToPathwayInstance = changes['pathwayInstance'];
 
-  parseMarkdown(markdown: string): void {
-    const showdown = getShowdown(this.pathwayInstance);
-    const converter = new showdown.Converter({extensions: ['kaavio']});
-    this.description = this.sanitizer.bypassSecurityTrustHtml(converter.makeHtml(markdown)) as string;
-  }
+    if (changeToMarkdown
+      && (changeToMarkdown.currentValue !== changeToMarkdown.previousValue)) {
+      // Store the markdown
+      this._markdown = changeToMarkdown.currentValue;
+    }
 
+    if (changeToPathwayInstance && changeToPathwayInstance.currentValue) {
+      // Store the instance
+      this._pathwayInstance = changeToPathwayInstance.currentValue;
+    }
+
+    if (this._pathwayInstance && this._markdown) {
+      // Only render description when instance and markdown are available
+      // kaavio-showdown requires the pathway instance
+      const showdown = getShowdown(this._pathwayInstance);
+      const converter = new showdown.Converter({extensions: ['kaavio']});
+
+      this.description = <string>this.sanitizer.bypassSecurityTrustHtml(
+        converter.makeHtml(this._markdown)
+      );
+    }
+  }
 }

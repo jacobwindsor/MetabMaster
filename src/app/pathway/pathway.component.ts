@@ -16,10 +16,9 @@ declare var Pvjs: any;
 export class PathwayComponent implements OnInit {
   retrievingData: boolean;
   pathwayLoading: boolean;
-  pathwayInstance: any; // TODO: set to Pvjs
+  pathwayInstance: any; // TODO: set type to Pvjs
   title: string;
   markdown: string; // Not parsed from Markdown
-  description: string;
   WPId: number;
   private id: string;
 
@@ -42,10 +41,13 @@ export class PathwayComponent implements OnInit {
     });
   }
 
-  pathwayLoaded(pathwayInstance: any) {
-    this.pathwayInstance = pathwayInstance;
-    this.pathwayLoading = false;
-  }
+  pathwayLoaded = (pathwayInstance: any) => {
+    pathwayInstance.ready.subscribe(ready => {
+      if (ready) {
+        this.pathwayInstance = pathwayInstance;
+      }
+    });
+  };
 
   destroy(): void {
     this.dialog.open(PathwayDeleteDialogComponent)
