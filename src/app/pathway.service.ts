@@ -92,7 +92,7 @@ export class PathwayService {
             description: val.description,
             userId: val.userId
           });
-        observer.next(returnVal);
+        observer.next(returnVal).complete();
       });
     });
   }
