@@ -22,6 +22,6 @@
     </md-card>
   </div>
 </div>
-<div class="row" *ngIf="! loading | async">
+<div class="row" *ngIf="pathways | async">
   <button md-button (click)="pathwayList.next()" color="primary" class="m-auto">Load more pathways</button>
 </div>
