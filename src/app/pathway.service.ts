@@ -1,9 +1,22 @@
 import { Injectable } from '@angular/core';
 import {FirebaseService} from "./firebase.service";
-import {Observable} from "rxjs/Rx";
+import {Observable, Subject} from "rxjs/Rx";
+
+export interface Pathway {
+  id: string;
+  WPId: number;
+  title: string;
+  description: number;
+  userId: string;
+  createdAt: number;
+  reversedCreatedAt: number;
+}
 
 @Injectable()
 export class PathwayService {
+  private lastReversedCreatedAt: number;
+  private pathwayList: Subject<Pathway> = new Subject();
+  pathwayList$: Observable<Pathway> = this.pathwayList.asObservable();
 
   constructor(public fb: FirebaseService) {
   }
@@ -32,7 +45,7 @@ export class PathwayService {
    * @param id
    * @returns {Observable}
    */
-  get(id: string): Observable<{ id: string, WPId: number, title: string, description: string, userId: string }> {
+  get(id: string): Observable<Pathway> {
     return Observable.fromPromise(new Promise((resolve, reject) => {
       this.fb.db.ref('pathways/' + id).once('value').then(snapshot => {
         const val = snapshot.val();
@@ -74,16 +87,14 @@ export class PathwayService {
    * @param startAt - The timestamp to start at (inclusive)
    * @returns {Observable}
    */
-  list(limit = 10, startAt?): Observable<{ id: string, WPId: number, title: string, description: string,
-    userId: string, createdAt: number, reversedCreatedAt: number }> {
+  list(limit = 10, startAt?): Observable<Pathway> {
     return Observable.create(observer => {
-      const ref = this.fb.db.ref('pathways').orderByChild('reversedCreatedAt').limitToFirst(limit);
+      let ref = this.fb.db.ref('pathways').orderByChild('reversedCreatedAt').limitToFirst(limit);
       if (startAt) {
-        ref.startAt(startAt);
+        ref = ref.startAt(startAt);
       }
 
       ref.on('child_added', snapshot => {
-        const returnVal = [];
         const val = snapshot.val();
         observer.next(
           {
@@ -97,7 +108,7 @@ export class PathwayService {
           }
         );
       });
-    });
+    }).startWith(null);
   }
 
   /**

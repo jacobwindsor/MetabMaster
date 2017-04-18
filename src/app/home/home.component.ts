@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PathwayService} from "../pathway.service";
+import {PathwayListService} from "../pathway-list.service";
 
 @Component({
   selector: 'app-home',
@@ -9,40 +10,36 @@ import {PathwayService} from "../pathway.service";
 export class HomeComponent implements OnInit {
   pathways: any = [];
   loading: boolean;
+  empty: boolean;
 
-  constructor(public pathwayService: PathwayService) { }
+  constructor(public pathwayList: PathwayListService, public pathwayService: PathwayService) { }
 
   ngOnInit() {
-    this.loading = true;
-    this.pathwayService.list()
-      .map(pathway => {
-        return {
-          title: pathway.title,
-          id: pathway.id,
-          image: this.pathwayService.staticImageUrlFromWPId(pathway.WPId),
-          createdAt: pathway.createdAt
-        };
-      })
-      .scan((acc, x) => {
-        acc.push(x);
-        return acc;
-      }, [])
+    this.getPathways();
+  }
+
+  getPathways(startAt?) {
+    this.pathways = this.pathwayList.pathwayList$
       .map(pathways => {
-        const sorted = pathways.sort((a, b) => {
-          if (a.createdAt < b.createdAt) {
-            return 1;
-          }
-          if (a.createdAt > b.createdAt) {
-            return -1;
-          }
-          return 0;
+        if (pathways.length < 1) {
+          return;
+        }
+        return pathways.map(singlePathway => {
+          return {
+            title: singlePathway.title,
+            id: singlePathway.id,
+            image: this.pathwayService.staticImageUrlFromWPId(singlePathway.WPId),
+            createdAt: singlePathway.createdAt,
+            reversedCreatedAt: singlePathway.reversedCreatedAt
+          };
         });
-        return sorted;
-      })
-      .subscribe(pathways => {
-        this.pathways = pathways;
-        this.loading = false;
       });
+    this.loading = this.pathways.mapTo(false).startWith(true);
+    this.pathwayList.next();
+  }
+
+  getNextPathways() {
+    this.pathwayList.next();
   }
 
 }

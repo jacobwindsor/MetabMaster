@@ -22,6 +22,7 @@ import { PathwayEditComponent } from './pathway-edit/pathway-edit.component';
 import { PathwayUpdateComponent } from './pathway-update/pathway-update.component';
 import { PathwayDeleteDialogComponent } from './pathway-delete-dialog/pathway-delete-dialog.component';
 import { InteractiveDescriptionPresComponent } from './interactive-description.pres/interactive-description.pres.component';
+import {PathwayListService} from "./pathway-list.service";
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { InteractiveDescriptionPresComponent } from './interactive-description.p
   providers: [
     FirebaseService,
     PathwayService,
+    PathwayListService,
     AuthService,
     AuthGuard
   ],
