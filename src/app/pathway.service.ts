@@ -71,7 +71,7 @@ export class PathwayService {
   /**
    * List all the pathways in ascending order. Ordered by the value of the WPId
    * @param limit - number of entries to return
-   * @param startAt - The id to start at (inclusive)
+   * @param startAt - The timestamp to start at (inclusive)
    * @returns {Observable}
    */
   list(limit = 25, startAt?): Observable<{ id: string, WPId: number, title: string, description: string, userId: string }[]> {
@@ -92,7 +92,7 @@ export class PathwayService {
             description: val.description,
             userId: val.userId
           });
-        observer.next(returnVal).complete();
+        observer.next(returnVal);
       });
     });
   }
