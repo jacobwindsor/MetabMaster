@@ -29,6 +29,7 @@
     "core-js": "^2.4.1",
     "firebase": "^3.7.5",
     "ng2-validators": "^2.1.1",
+    "promise-polyfill": "^6.0.2",
     "pvjs": "git://github.com/wikipathways/pvjs.git#typescript-react",
     "rxjs": "^5.1.0",
     "showdown": "^1.6.4",
