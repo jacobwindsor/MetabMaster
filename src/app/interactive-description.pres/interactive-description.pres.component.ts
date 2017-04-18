@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChange} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange} from '@angular/core';
 import {getShowdown} from '@wikipathways/kaavio-showdown';
 import {DomSanitizer} from "@angular/platform-browser";
 
@@ -16,11 +16,14 @@ export class InteractiveDescriptionPresComponent implements OnChanges {
   @Input() pathwayInstance: any; // TODO: set type to Pvjs
   @Input() markdown: string;
   @Input() title: string;
+  @Output() isRendered: EventEmitter<boolean> = new EventEmitter();
 
 
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+    this.isRendered.emit(false);
+
     const changeToMarkdown = changes['markdown'];
     const changeToPathwayInstance = changes['pathwayInstance'];
 
@@ -44,6 +47,7 @@ export class InteractiveDescriptionPresComponent implements OnChanges {
       this.description = <string>this.sanitizer.bypassSecurityTrustHtml(
         converter.makeHtml(this._markdown)
       );
+      this.isRendered.emit(true);
     }
   }
 }

@@ -9,7 +9,7 @@ declare var Pvjs: any;
 })
 export class DiagramPresComponent {
   @ViewChild('pathway') pathway;
-  @Input('WPId') set WPId(WPId: number){this.loadDiagram(WPId);};
+  @Input('WPId') set WPId(WPId: number){this.loadDiagram(WPId); };
 
   // TODO: Use Pvjs type when can remove delcaration
   @Output() pathwayInstance = new EventEmitter<any>();
