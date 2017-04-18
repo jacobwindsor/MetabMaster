@@ -74,7 +74,7 @@ export class PathwayService {
    * @param startAt - The timestamp to start at (inclusive)
    * @returns {Observable}
    */
-  list(limit = 25, startAt?): Observable<{ id: string, WPId: number, title: string, description: string,
+  list(limit = 10, startAt?): Observable<{ id: string, WPId: number, title: string, description: string,
     userId: string, createdAt: number, reversedCreatedAt: number }> {
     return Observable.create(observer => {
       const ref = this.fb.db.ref('pathways').orderByChild('reversedCreatedAt').limitToFirst(limit);
