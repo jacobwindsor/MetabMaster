@@ -17,11 +17,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PathwayCreateComponent } from './pathway-create/pathway-create.component';
 import {AuthGuard} from "./auth.guard";
 import { HomeComponent } from './home/home.component';
-import { DiagramComponent } from './diagram/diagram.component';
+import { DiagramPresComponent } from './diagram.pres/diagram.pres.component';
 import { PathwayEditComponent } from './pathway-edit/pathway-edit.component';
 import { PathwayUpdateComponent } from './pathway-update/pathway-update.component';
 import { PathwayDeleteDialogComponent } from './pathway-delete-dialog/pathway-delete-dialog.component';
-import { InteractiveDescriptionComponent } from './interactive-description/interactive-description.component';
+import { InteractiveDescriptionPresComponent } from './interactive-description.pres/interactive-description.pres.component';
 
 @NgModule({
   declarations: [
@@ -31,11 +31,11 @@ import { InteractiveDescriptionComponent } from './interactive-description/inter
     SignUpOrSignInComponent,
     PathwayCreateComponent,
     HomeComponent,
-    DiagramComponent,
+    DiagramPresComponent,
     PathwayEditComponent,
     PathwayUpdateComponent,
     PathwayDeleteDialogComponent,
-    InteractiveDescriptionComponent
+    InteractiveDescriptionPresComponent
   ],
   entryComponents: [
     PathwayDeleteDialogComponent

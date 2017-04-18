@@ -3,11 +3,11 @@ import {getShowdown} from '@wikipathways/kaavio-showdown';
 import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-interactive-description',
-  templateUrl: './interactive-description.component.html',
-  styleUrls: ['./interactive-description.component.scss']
+  selector: 'app-pres-interactive-description',
+  templateUrl: './interactive-description.pres.component.html',
+  styleUrls: ['./interactive-description.pres.component.scss']
 })
-export class InteractiveDescriptionComponent implements OnChanges {
+export class InteractiveDescriptionPresComponent implements OnChanges {
 
   private _pathwayInstance: any; // TODO: set type to Pvjs
   private _markdown: string;
