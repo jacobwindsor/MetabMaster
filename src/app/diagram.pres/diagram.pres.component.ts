@@ -3,13 +3,13 @@ import {Component, Input, OnInit, Output, ViewChild, EventEmitter} from '@angula
 declare var Pvjs: any;
 
 @Component({
-  selector: 'app-diagram',
-  templateUrl: './diagram.component.html',
-  styleUrls: ['./diagram.component.css']
+  selector: 'app-pres-diagram',
+  templateUrl: './diagram.pres.component.html',
+  styleUrls: ['./diagram.pres.component.css']
 })
-export class DiagramComponent {
+export class DiagramPresComponent {
   @ViewChild('pathway') pathway;
-  @Input('WPId') set WPId(WPId: number){this.loadDiagram(WPId);};
+  @Input('WPId') set WPId(WPId: number){this.loadDiagram(WPId); };
 
   // TODO: Use Pvjs type when can remove delcaration
   @Output() pathwayInstance = new EventEmitter<any>();

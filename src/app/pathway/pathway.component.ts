@@ -11,11 +11,10 @@ declare var Pvjs: any;
 @Component({
   selector: 'app-pathway',
   templateUrl: './pathway.component.html',
-  styleUrls: ['./pathway.component.css']
+  styleUrls: ['./pathway.component.scss']
 })
 export class PathwayComponent implements OnInit {
-  retrievingData: boolean;
-  pathwayLoading: boolean;
+  loading: boolean;
   pathwayInstance: any; // TODO: set type to Pvjs
   title: string;
   markdown: string; // Not parsed from Markdown
@@ -26,8 +25,7 @@ export class PathwayComponent implements OnInit {
               private dialog: MdDialog, public router: Router) { }
 
   ngOnInit(): void {
-    this.retrievingData = true;
-    this.pathwayLoading = true;
+    this.loading = true;
 
     this.route.params.subscribe((params: Params) => {
       const id = params.id;
@@ -36,7 +34,6 @@ export class PathwayComponent implements OnInit {
         this.title = pathway.title;
         this.WPId = pathway.WPId;
         this.markdown = pathway.description;
-        this.retrievingData = false;
       });
     });
   }
@@ -47,7 +44,13 @@ export class PathwayComponent implements OnInit {
         this.pathwayInstance = pathwayInstance;
       }
     });
-  };
+  }
+
+  onDescriptionRenderedChange(rendered: boolean): void {
+    if (! rendered) { return; }
+
+    this.loading = false;
+  }
 
   destroy(): void {
     this.dialog.open(PathwayDeleteDialogComponent)

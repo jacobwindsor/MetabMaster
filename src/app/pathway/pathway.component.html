@@ -1,9 +1,9 @@
-<md-progress-spinner mode="indeterminate" class="loading-spinner" *ngIf="retrievingData"></md-progress-spinner>
+<md-progress-spinner mode="indeterminate" class="loading-spinner" [class.hidden]="!loading"></md-progress-spinner>
 
-<div class="row" *ngIf="! retrievingData">
-  <div class="col">
-    <app-interactive-description [markdown]="markdown" [pathwayInstance]="pathwayInstance"
-                                 [title]="title"></app-interactive-description>
+<div class="row">
+  <div class="col" [class.blurred]="loading">
+    <app-pres-interactive-description [markdown]="markdown" [pathwayInstance]="pathwayInstance"
+                                      [title]="title" (isRendered)="onDescriptionRenderedChange($event)"></app-pres-interactive-description>
     <div class="row">
       <div class="col">
         <p>
@@ -19,7 +19,7 @@
       </div>
     </div>
   </div>
-  <div class="col">
-    <app-diagram [WPId]="WPId" (pathwayInstance)="pathwayLoaded($event)"></app-diagram>
+  <div class="col" [class.blurred]="loading">
+    <app-pres-diagram [WPId]="WPId" (pathwayInstance)="pathwayLoaded($event)"></app-pres-diagram>
   </div>
 </div>
