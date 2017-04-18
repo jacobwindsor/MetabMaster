@@ -20,7 +20,8 @@
         },
         "reversedCreatedAt": {
           ".validate": "newData.isNumber && newData.val().length <= 0"
-        }
+        },
+        ".indexOn": "reversedCreatedAt"
       }
     }
   }

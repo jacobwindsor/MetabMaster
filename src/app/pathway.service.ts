@@ -74,7 +74,8 @@ export class PathwayService {
    * @param startAt - The timestamp to start at (inclusive)
    * @returns {Observable}
    */
-  list(limit = 25, startAt?): Observable<{ id: string, WPId: number, title: string, description: string, userId: string }[]> {
+  list(limit = 25, startAt?): Observable<{ id: string, WPId: number, title: string, description: string,
+    userId: string, createdAt: number, reversedCreatedAt: number }> {
     return Observable.create(observer => {
       const ref = this.fb.db.ref('pathways').orderByChild('reversedCreatedAt').limitToFirst(limit);
       if (startAt) {
@@ -84,15 +85,17 @@ export class PathwayService {
       ref.on('child_added', snapshot => {
         const returnVal = [];
         const val = snapshot.val();
-        returnVal.push(
+        observer.next(
           {
             id: snapshot.key,
             WPId: val.WPId,
             title: val.title,
             description: val.description,
-            userId: val.userId
-          });
-        observer.next(returnVal);
+            userId: val.userId,
+            createdAt: val.createdAt,
+            reversedCreatedAt: val.reversedCreatedAt
+          }
+        );
       });
     });
   }

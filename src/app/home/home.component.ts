@@ -14,18 +14,35 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.pathwayService.list().subscribe(pathways => {
-      console.log(pathways);
-      const newPathways = pathways.map(pathway => {
+    this.pathwayService.list()
+      .map(pathway => {
         return {
           title: pathway.title,
           id: pathway.id,
-          image: this.pathwayService.staticImageUrlFromWPId(pathway.WPId)
+          image: this.pathwayService.staticImageUrlFromWPId(pathway.WPId),
+          createdAt: pathway.createdAt
         };
+      })
+      .scan((acc, x) => {
+        acc.push(x);
+        return acc;
+      }, [])
+      .map(pathways => {
+        const sorted = pathways.sort((a, b) => {
+          if (a.createdAt < b.createdAt) {
+            return 1;
+          }
+          if (a.createdAt > b.createdAt) {
+            return -1;
+          }
+          return 0;
+        });
+        return sorted;
+      })
+      .subscribe(pathways => {
+        this.pathways = pathways;
+        this.loading = false;
       });
-      this.pathways = this.pathways.concat(newPathways);
-      this.loading = false;
-    });
   }
 
 }
