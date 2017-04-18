@@ -18,7 +18,7 @@ export class PathwayService {
     return new Promise((resolve, reject) => {
       ref.set(values)
         .then(resolve(ref.key))
-        .catch(err => resolve(err));
+        .catch(err => reject(err));
     });
   }
 
