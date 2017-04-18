@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.pathwayService.list().subscribe(pathways => {
+      console.log(pathways);
       const newPathways = pathways.map(pathway => {
         return {
           title: pathway.title,

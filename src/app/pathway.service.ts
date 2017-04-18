@@ -14,8 +14,14 @@ export class PathwayService {
    */
   create(values: { WPId: number, title: string, description: string, userId: string }): Promise<any> {
     const ref = this.fb.db.ref('pathways').push();
+    const timestamp = Date.now();
+    const toSet = Object.assign({
+      createdAt: timestamp,
+      reversedCreatedAt: -timestamp
+    }, values);
+
     return new Promise((resolve, reject) => {
-      ref.set(values)
+      ref.set(toSet)
         .then(resolve(ref.key))
         .catch(err => reject(err));
     });
@@ -35,7 +41,9 @@ export class PathwayService {
           WPId: val.WPId,
           title: val.title,
           description: val.description,
-          userId: val.userId
+          userId: val.userId,
+          createdAt: val.createdAt,
+          reversedCreatedAt: val.reversedCreatedAt
         });
       }).catch(err => {
         reject(err);
@@ -68,25 +76,22 @@ export class PathwayService {
    */
   list(limit = 25, startAt?): Observable<{ id: string, WPId: number, title: string, description: string, userId: string }[]> {
     return Observable.create(observer => {
-      const ref = this.fb.db.ref('pathways').orderByKey().limitToFirst(limit);
+      const ref = this.fb.db.ref('pathways').orderByChild('reversedCreatedAt').limitToFirst(limit);
       if (startAt) {
         ref.startAt(startAt);
       }
 
-      ref.on('value', snapshot => {
+      ref.on('child_added', snapshot => {
         const returnVal = [];
-        snapshot.forEach(data => {
-          const val = data.val();
-          returnVal.push(
-            {
-              id: data.key,
-              WPId: val.WPId,
-              title: val.title,
-              description: val.description,
-              userId: val.userId
-            }
-          );
-        });
+        const val = snapshot.val();
+        returnVal.push(
+          {
+            id: snapshot.key,
+            WPId: val.WPId,
+            title: val.title,
+            description: val.description,
+            userId: val.userId
+          });
         observer.next(returnVal);
       });
     });
