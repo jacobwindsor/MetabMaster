@@ -10,7 +10,6 @@ export class PathwayService {
 
   /**
    * Create a pathway
-   * @param WPId - The ID for the WikiPathways pathway. Exclude the 'WP'. E.g. use 78 for TCA cycle
    * @param values
    */
   create(values: { WPId: number, title: string, description: string, userId: string }): Promise<any> {

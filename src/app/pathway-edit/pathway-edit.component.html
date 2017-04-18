@@ -7,20 +7,26 @@
             <md-input-container class="input">
               <input mdInput placeholder="WikiPathways ID" type="text" formControlName="WPId">
             </md-input-container>
-            <p style="color: red; font-size: .9rem" *ngIf="!pathwayForm.get('WPId').pristine && !! pathwayForm.get('WPId').errors" class="error">
-              Please enter a valid WikiPathways ID. Only include the number, excluding the 'WP' part.
+            <p style="color: red; font-size: .9rem" *ngIf="formErrors.WPId" class="error">
+             {{ formErrors.WPId }}
             </p>
           </div>
           <div class="row">
             <md-input-container class="input">
               <input mdInput placeholder="Title" type="text" formControlName="title">
             </md-input-container>
+            <p style="color: red; font-size: .9rem" *ngIf="formErrors.title" class="error">
+              {{ formErrors.title }}
+            </p>
           </div>
           <div class="row">
             <p class="text-muted" style="font-size:.8rem"><strong>Tip!</strong> Use Markdown for interactive links.
               <a href="https://jacobwindsor.github.io/kaavio-showdown/writers" target="_blank">
                 Click here for help
               </a>
+            </p>
+            <p style="color: red; font-size: .9rem" *ngIf="formErrors.markdown" class="error">
+              {{ formErrors.markdown }}
             </p>
             <md-input-container class="input">
               <textarea mdInput placeholder="Interactive description" formControlName="markdown" rows="10"></textarea>

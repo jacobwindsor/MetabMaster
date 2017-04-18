@@ -25,9 +25,30 @@ export class PathwayEditComponent implements OnInit {
 
   pathwayForm = new FormGroup({
     WPId: new FormControl('', Validators.compose([Validators.required, UniversalValidators.isNumber])),
-    title: new FormControl('', Validators.required),
+    title: new FormControl('', Validators.compose([Validators.required, Validators.minLength(30)])),
     markdown: new FormControl('', Validators.required)
   });
+
+  formErrors = {
+    'WPId': '',
+    'title': '',
+    'markdown': ''
+  };
+
+  formHasError = false;
+
+  validationMessages = {
+    'WPId': {
+      'required': 'You must enter a WikiPathways ID!',
+      'numberRequired': 'The ID must be a number. Exclude the \'WP\' part.'
+    },
+    'title': {
+      'required': 'You must enter a title!'
+    },
+    'markdown': {
+      'required': 'Provide an interactive description!'
+    }
+  };
 
   entitySearchControl = new FormControl();
 
@@ -43,34 +64,33 @@ export class PathwayEditComponent implements OnInit {
       markdown: this.markdown || ''
     });
 
-    const WPIdControl = this.pathwayForm.get('WPId');
-    WPIdControl.valueChanges
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .subscribe((value: string) => {
-        if (value && value.length > 0) {
-          this.entities = [];
-          this.WPId = parseInt(value, 10);
+    this.pathwayForm.valueChanges
+      .debounceTime(200)
+      .subscribe(data => this.onValueChanged(data));
+  }
+
+  onValueChanged(data?: any) {
+    if (!this.pathwayForm) { return; }
+
+    const form = this.pathwayForm;
+
+    this.WPId = form.get('WPId').value;
+    this.title = form.get('title').value;
+    this.markdown = form.get('markdown').value;
+
+    // Validation
+    this.formHasError = false;
+    for (const field in this.formErrors) {
+      this.formErrors[field] = '';
+      const control = form.get(field);
+      if (control && control.dirty && !control.valid) {
+        this.formHasError = true;
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
         }
-      });
-
-    // TODO: refactor this code to just use one ngOnChanges
-    // See https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#parent-to-child-on-changes
-    const titleControl = this.pathwayForm.get('title');
-    titleControl.valueChanges
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .subscribe((value: string) => {
-        this.title = value;
-      });
-
-    const descriptionControl = this.pathwayForm.get('markdown');
-    descriptionControl.valueChanges
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .subscribe((value: string) => {
-        this.markdown = value;
-      });
+      }
+    }
   }
 
   pathwayLoaded = (instance: any) => {
@@ -96,7 +116,6 @@ export class PathwayEditComponent implements OnInit {
   }
 
   renderEntitySearch = () => {
-    console.log(this.entities);
     this.filteredEntities = this.entitySearchControl.valueChanges
       .do(val => {
         const toHighlight = this.entities.find(entity => entity.id === val);
@@ -108,7 +127,7 @@ export class PathwayEditComponent implements OnInit {
   }
 
   save = () => {
-    // TODO: Only fire when form valid
+    if (this.formHasError) { return; }
     const formVal = this.pathwayForm.value;
     this.onSave.emit(formVal);
   }

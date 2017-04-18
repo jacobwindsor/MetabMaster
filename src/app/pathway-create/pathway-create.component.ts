@@ -21,9 +21,8 @@ export class PathwayCreateComponent implements OnInit {
   }
 
   savePathway(val: any) {
-    // TODO: Only fire when form valid
     this.pathwayService.create({
-      WPId: val.WPId,
+      WPId: parseInt(val.WPId, 10),
       title: val.title,
       description: val.markdown,
       userId: this.auth.user.uid
