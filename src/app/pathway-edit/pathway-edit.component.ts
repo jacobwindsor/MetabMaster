@@ -35,8 +35,6 @@ export class PathwayEditComponent implements OnInit {
     'markdown': ''
   };
 
-  formHasError = false;
-
   validationMessages = {
     'WPId': {
       'required': 'You must enter a WikiPathways ID!',
@@ -68,6 +66,8 @@ export class PathwayEditComponent implements OnInit {
     this.pathwayForm.valueChanges
       .debounceTime(200)
       .subscribe(data => this.onValueChanged(data));
+
+    this.onValueChanged();
   }
 
   onValueChanged(data?: any) {
@@ -80,12 +80,10 @@ export class PathwayEditComponent implements OnInit {
     this.markdown = form.get('markdown').value;
 
     // Validation
-    this.formHasError = false;
     for (const field in this.formErrors) {
       this.formErrors[field] = '';
       const control = form.get(field);
       if (control && control.dirty && !control.valid) {
-        this.formHasError = true;
         const messages = this.validationMessages[field];
         for (const key in control.errors) {
           this.formErrors[field] += messages[key] + ' ';
@@ -128,7 +126,7 @@ export class PathwayEditComponent implements OnInit {
   }
 
   save = () => {
-    if (this.formHasError) { return; }
+    if (! this.pathwayForm.valid) return;
     const formVal = this.pathwayForm.value;
     this.onSave.emit(formVal);
   }
