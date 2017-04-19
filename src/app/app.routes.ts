@@ -14,7 +14,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'pathway/:id/update',
-    component: PathwayUpdateComponent
+    component: PathwayUpdateComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'pathway/:id',
@@ -26,8 +27,8 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    component: HomeComponent,
-    canActivate: [AuthGuard]
+    component: HomeComponent
+
   }
 ];
 
