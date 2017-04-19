@@ -9,7 +9,8 @@
     "build:prod": "ng build --prod --aot",
     "test": "echo \"Don't test yet. Do tests later for speed\"",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "copy": "copy"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +27,7 @@
     "@types/react": "^15.0.20",
     "@wikipathways/kaavio-showdown": "^0.1.1",
     "bootstrap": "^4.0.0-alpha.6",
+    "copy": "^0.3.0",
     "core-js": "^2.4.1",
     "firebase": "^3.7.5",
     "ng2-validators": "^2.1.1",
@@ -40,7 +42,7 @@
     "@angular/cli": "^1.0.0",
     "@angular/compiler-cli": "^4.0.2",
     "@types/jasmine": "2.5.38",
-    "@types/node": "^6.0.69",
+    "@types/node": "^6.0.70",
     "codelyzer": "~2.0.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",

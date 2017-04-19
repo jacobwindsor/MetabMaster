@@ -7,14 +7,12 @@ before_install:
   - npm install -g @angular/cli
 
 script:
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run build:prod; else npm run build; fi;
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run build:prod && cp ./dist/index.html ./dist/200.html; else npm run build; fi;
 
 deploy:
-  provider: pages
+  provider: surge
+  project: ./dist/
+  domain: metabmaster.surge.sh
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN
   on:
     branch: master
-  fqdn: metabmaster.jcbwndsr.com
-  project_name: MetabMaster
-  local_dir: dist
