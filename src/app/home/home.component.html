@@ -1,6 +1,6 @@
 <md-progress-spinner mode="indeterminate" *ngIf="loading" class="loading-spinner"></md-progress-spinner>
 
-<div class="row" *ngIf="empty | async">
+<div class="row" *ngIf="!loading && pathways.length < 1">
   <div class="col">
     <h1 class="text-center">No pathway stories :(</h1>
     <p class="text-center"><a [routerLink]="['pathway/create']">Create one!</a></p>
