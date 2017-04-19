@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {PathwayService} from "../pathway.service";
+import {Pathway, PathwayService} from "../pathway.service";
 import {MdDialog} from "@angular/material";
 import {PathwayDeleteDialogComponent} from "../pathway-delete-dialog/pathway-delete-dialog.component";
 
@@ -30,7 +30,7 @@ export class PathwayComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       const id = params.id;
       this.id = id;
-      this.pathwayService.get(id).subscribe(pathway => {
+      this.pathwayService.get(id).subscribe((pathway: Pathway) => {
         this.title = pathway.title;
         this.WPId = pathway.WPId;
         this.markdown = pathway.description;

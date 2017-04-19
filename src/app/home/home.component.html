@@ -1,4 +1,4 @@
-<md-progress-spinner mode="indeterminate" *ngIf="loading | async" class="loading-spinner"></md-progress-spinner>
+<md-progress-spinner mode="indeterminate" *ngIf="loading" class="loading-spinner"></md-progress-spinner>
 
 <div class="row" *ngIf="empty | async">
   <div class="col">
@@ -8,7 +8,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-4 col-xs-12 mb-3" *ngFor="let pathway of pathways | async">
+  <div class="col-md-4 col-xs-12 mb-3" *ngFor="let pathway of pathways">
     <md-card>
       <img md-card-lg-image src="{{pathway.image}}" class="pathway-image">
       <md-card-title>
@@ -22,6 +22,6 @@
     </md-card>
   </div>
 </div>
-<div class="row" *ngIf="pathways | async">
-  <button md-button (click)="pathwayList.next()" color="primary" class="m-auto">Load more pathways</button>
+<div class="row">
+  <button md-button color="primary" (click)="getNext()" class="m-auto" *ngIf="! loading">Load more pathways</button>
 </div>

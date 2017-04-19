@@ -6,7 +6,7 @@ export interface Pathway {
   id: string;
   WPId: number;
   title: string;
-  description: number;
+  description: string;
   userId: string;
   createdAt: number;
   reversedCreatedAt: number;
@@ -87,28 +87,23 @@ export class PathwayService {
    * @param startAt - The timestamp to start at (inclusive)
    * @returns {Observable}
    */
-  list(limit = 10, startAt?): Observable<Pathway> {
+  list(limit = 10, startAt?): Observable<Pathway[]> {
     return Observable.create(observer => {
       let ref = this.fb.db.ref('pathways').orderByChild('reversedCreatedAt').limitToFirst(limit);
       if (startAt) {
         ref = ref.startAt(startAt);
       }
 
-      ref.on('child_added', snapshot => {
-        const val = snapshot.val();
-        observer.next(
-          {
-            id: snapshot.key,
-            WPId: val.WPId,
-            title: val.title,
-            description: val.description,
-            userId: val.userId,
-            createdAt: val.createdAt,
-            reversedCreatedAt: val.reversedCreatedAt
-          }
-        );
+      ref.once('value', snapshot => {
+        const pathways = [];
+        snapshot.forEach(singlePathway => {
+          pathways.push(
+            Object.assign({id: singlePathway.key}, singlePathway.val())
+          );
+        });
+        observer.next(pathways);
       });
-    }).startWith(null);
+    });
   }
 
   /**
