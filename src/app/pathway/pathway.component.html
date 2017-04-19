@@ -1,7 +1,13 @@
 <md-progress-spinner mode="indeterminate" class="loading-spinner" [class.hidden]="!loading"></md-progress-spinner>
 
-<div class="row">
-  <div class="col" [class.blurred]="loading">
+<div class="row justify-content-center" *ngIf="error" >
+  <div class="col-md-6 col-sm-12 align-self-xs-center">
+    <app-alert *ngIf="error" [heading]="error.heading" [message]="error.message" [type]="error"></app-alert>
+  </div>
+</div>
+
+<div class="row"  [class.blurred]="loading" *ngIf="! error">
+  <div class="col">
     <app-pres-interactive-description [markdown]="markdown" [pathwayInstance]="pathwayInstance"
                                       [title]="title" (isRendered)="onDescriptionRenderedChange($event)"></app-pres-interactive-description>
     <div class="row">
@@ -19,7 +25,7 @@
       </div>
     </div>
   </div>
-  <div class="col" [class.blurred]="loading">
+  <div class="col">
     <app-pres-diagram [WPId]="WPId" (pathwayInstance)="pathwayLoaded($event)"></app-pres-diagram>
   </div>
 </div>

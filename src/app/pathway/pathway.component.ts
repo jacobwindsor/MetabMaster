@@ -14,6 +14,7 @@ declare var Pvjs: any;
   styleUrls: ['./pathway.component.scss']
 })
 export class PathwayComponent implements OnInit {
+  error: {heading: string, message: string};
   loading: boolean;
   pathwayInstance: any; // TODO: set type to Pvjs
   title: string;
@@ -34,6 +35,9 @@ export class PathwayComponent implements OnInit {
         this.title = pathway.title;
         this.WPId = pathway.WPId;
         this.markdown = pathway.description;
+      }, err => {
+        this.loading = false;
+        this.error = {heading: 'Couldn\'t get that pathway!', message: 'Does it exist? Try refreshing the page.'};
       });
     });
   }
@@ -44,7 +48,7 @@ export class PathwayComponent implements OnInit {
         this.pathwayInstance = pathwayInstance;
       }
     });
-  }
+  };
 
   onDescriptionRenderedChange(rendered: boolean): void {
     if (! rendered) { return; }
