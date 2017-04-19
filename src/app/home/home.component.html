@@ -1,6 +1,6 @@
 <md-progress-spinner mode="indeterminate" *ngIf="loading" class="loading-spinner"></md-progress-spinner>
 
-<div class="row" *ngIf="(! pathways || pathways.length < 1) && !loading">
+<div class="row" *ngIf="empty | async">
   <div class="col">
     <h1 class="text-center">No pathway stories :(</h1>
     <p class="text-center"><a [routerLink]="['pathway/create']">Create one!</a></p>
@@ -21,4 +21,7 @@
       </md-card-actions>
     </md-card>
   </div>
+</div>
+<div class="row">
+  <button md-button color="primary" (click)="getNext()" class="m-auto" *ngIf="! loading">Load more pathways</button>
 </div>

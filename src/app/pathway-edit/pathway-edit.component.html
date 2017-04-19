@@ -1,33 +1,39 @@
 <div class="row">
-  <div [class]="WPId? 'col-6': 'col'">
+  <div class="col-6" [class.col-12]="! WPId">
     <md-tab-group>
       <md-tab label="Editor">
-        <form class="container mt-3" [formGroup]="pathwayForm">
-          <div class="row">
+        <form class="mt-3" [formGroup]="pathwayForm">
+          <div class="form-group">
             <md-input-container class="input">
               <input mdInput placeholder="WikiPathways ID" type="text" formControlName="WPId">
             </md-input-container>
-            <p style="color: red; font-size: .9rem" *ngIf="!pathwayForm.get('WPId').pristine && !! pathwayForm.get('WPId').errors" class="error">
-              Please enter a valid WikiPathways ID. Only include the number, excluding the 'WP' part.
+            <p style="color: red; font-size: .9rem" *ngIf="formErrors.WPId" class="error">
+             {{ formErrors.WPId }}
             </p>
           </div>
-          <div class="row">
+          <div class="form-group">
             <md-input-container class="input">
               <input mdInput placeholder="Title" type="text" formControlName="title">
             </md-input-container>
+            <p style="color: red; font-size: .9rem" *ngIf="formErrors.title" class="error">
+              {{ formErrors.title }}
+            </p>
           </div>
-          <div class="row">
+          <div class="form-group">
             <p class="text-muted" style="font-size:.8rem"><strong>Tip!</strong> Use Markdown for interactive links.
               <a href="https://jacobwindsor.github.io/kaavio-showdown/writers" target="_blank">
                 Click here for help
               </a>
+            </p>
+            <p style="color: red; font-size: .9rem" *ngIf="formErrors.markdown" class="error">
+              {{ formErrors.markdown }}
             </p>
             <md-input-container class="input">
               <textarea mdInput placeholder="Interactive description" formControlName="markdown" rows="10"></textarea>
             </md-input-container>
           </div>
           <div class="row">
-            <button md-button (click)="save()">Save</button>
+            <button md-button (click)="save()" [disabled]="!pathwayForm.valid">Save</button>
           </div>
         </form>
       </md-tab>
