@@ -48,7 +48,7 @@ export class PathwayComponent implements OnInit {
         this.pathwayInstance = pathwayInstance;
       }
     });
-  };
+  }
 
   onDescriptionRenderedChange(rendered: boolean): void {
     if (! rendered) { return; }

@@ -126,7 +126,7 @@ export class PathwayEditComponent implements OnInit {
   }
 
   save = () => {
-    if (! this.pathwayForm.valid) return;
+    if (! this.pathwayForm.valid) { return; };
     const formVal = this.pathwayForm.value;
     this.onSave.emit(formVal);
   }
