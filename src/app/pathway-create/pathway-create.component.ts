@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Observable} from "rxjs";
+import {Observable} from "rxjs/Rx";
 import {PathwayService} from "../pathway.service";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
