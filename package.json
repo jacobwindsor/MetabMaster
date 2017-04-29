@@ -25,7 +25,7 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "@types/react": "^15.0.20",
-    "@wikipathways/kaavio-showdown": "^1.0.1",
+    "@wikipathways/kaavio-showdown": "^1.1.0",
     "bootstrap": "^4.0.0-alpha.6",
     "copy": "^0.3.0",
     "core-js": "^2.4.1",
