@@ -4,7 +4,8 @@
 .input {
   width: 100%;
 }
-.mat-tab-body {
+
+/deep/ .mat-tab-body {
   overflow-y: hidden !important;
 }
 
@@ -13,14 +14,18 @@
   height: 80vh;
 }
 
-#pathway, #description {
+#pathway-section, #description-section {
   @include media-breakpoint-between(xs, md) {
     height: 50%;
   }
   height: 100%;
 }
 
-#description {
+#pathway-diagram-row {
+  height: 80%;
+}
+
+#description-section {
   overflow-y: scroll;
 }
 

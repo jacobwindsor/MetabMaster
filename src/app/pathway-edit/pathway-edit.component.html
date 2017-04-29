@@ -1,19 +1,26 @@
 <div class="row" id="wrapper">
-  <div class="col-md-6 col-xs-12 push-md-6" *ngIf="!!WPId" id="pathway">
-    <div *ngIf="entities.length > 0">
-      <md-input-container class="input">
-        <input type="text" mdInput [formControl]="entitySearchControl" [mdAutocomplete]="auto" placeholder="Search for a pathway element">
-      </md-input-container>
-      <md-autocomplete #auto="mdAutocomplete" class="input">
-        <md-option *ngFor="let entity of filteredEntities | async" [value]="entity.id" class="input">
-          {{entity.text}} ({{entity.id}})
-        </md-option>
-      </md-autocomplete>
+  <div class="col-md-6 col-xs-12 push-md-6" *ngIf="!! WPId" id="pathway-section">
+    <div class="row">
+      <div class="col">
+        <div *ngIf="entities.length > 0">
+          <md-input-container class="input">
+            <input type="text" mdInput [formControl]="entitySearchControl" [mdAutocomplete]="auto" placeholder="Search for a pathway element">
+          </md-input-container>
+          <md-autocomplete #auto="mdAutocomplete" class="input">
+            <md-option *ngFor="let entity of filteredEntities | async" [value]="entity.id" class="input">
+              {{entity.text}} ({{entity.id}})
+            </md-option>
+          </md-autocomplete>
+        </div>
+      </div>
     </div>
-
-    <app-pres-diagram [WPId]="WPId" (pathwayInstance)="pathwayLoaded($event)"></app-pres-diagram>
+    <div class="row" id="pathway-diagram-row">
+      <div class="col">
+        <app-pres-diagram [WPId]="WPId" (pathwayInstance)="pathwayLoaded($event)"></app-pres-diagram>
+      </div>
+    </div>
   </div>
-  <div class="col-12" [class.pull-md-6]="!! WPId" [class.col-md-6]="!! WPId" id="description">
+  <div class="col-12" [class.pull-md-6]="!! WPId" [class.col-md-6]="!! WPId" id="description-section">
     <md-tab-group>
       <md-tab label="Editor">
         <form class="mt-3" [formGroup]="pathwayForm">
