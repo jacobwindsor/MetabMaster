@@ -1,0 +1,29 @@
+@import '../../styles/variables';
+@import '~bootstrap/scss/mixins/breakpoints';
+
+.input {
+  width: 100%;
+}
+
+/deep/ .mat-tab-body {
+  overflow-y: hidden !important;
+}
+
+#wrapper {
+  position: relative;
+  height: 80vh;
+}
+
+#pathway, #description {
+  @include media-breakpoint-between(xs, md) {
+    height: 50%;
+  }
+  height: 100%;
+}
+
+#description {
+  overflow-y: scroll;
+}
+
+
+

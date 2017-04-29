@@ -9,7 +9,7 @@ import {UniversalValidators} from 'ng2-validators';
 @Component({
   selector: 'app-pathway-edit',
   templateUrl: './pathway-edit.component.html',
-  styleUrls: ['./pathway-edit.component.css']
+  styleUrls: ['./pathway-edit.component.scss']
 })
 export class PathwayEditComponent implements OnInit {
   // Initial values
