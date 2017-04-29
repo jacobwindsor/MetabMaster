@@ -119,7 +119,8 @@ export class PathwayEditComponent implements OnInit {
       .do(val => {
         const toHighlight = this.entities.find(entity => entity.id === val);
         if (toHighlight) {
-          this.pathwayInstance.manipulator.reset().highlightOn(toHighlight.id, 'red');
+          this.pathwayInstance.manipulator.reset();
+          this.pathwayInstance.manipulator.highlightOn(toHighlight.id, 'red');
         }
       })
       .map(val => val ? this.filter(val) : this.entities.slice());
