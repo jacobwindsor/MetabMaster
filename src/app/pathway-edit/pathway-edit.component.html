@@ -1,10 +1,9 @@
 <div class="row" id="wrapper">
-  <div class="col-md-6 col-xs-12 push-md-6" *ngIf="WPId" id="pathway">
+  <div class="col-md-6 col-xs-12 push-md-6" *ngIf="!!WPId" id="pathway">
     <div *ngIf="entities.length > 0">
       <md-input-container class="input">
         <input type="text" mdInput [formControl]="entitySearchControl" [mdAutocomplete]="auto" placeholder="Search for a pathway element">
       </md-input-container>
-
       <md-autocomplete #auto="mdAutocomplete" class="input">
         <md-option *ngFor="let entity of filteredEntities | async" [value]="entity.id" class="input">
           {{entity.text}} ({{entity.id}})
@@ -14,9 +13,9 @@
 
     <app-pres-diagram [WPId]="WPId" (pathwayInstance)="pathwayLoaded($event)"></app-pres-diagram>
   </div>
-  <div class="col-md-6 col-xs-12 pull-md-6" [class.col-12]="! WPId" id="description">
+  <div class="col-12" [class.pull-md-6]="!! WPId" [class.col-md-6]="!! WPId" id="description">
     <md-tab-group>
-      <md-tab label="Editor" style="overflow-y: hidden">
+      <md-tab label="Editor">
         <form class="mt-3" [formGroup]="pathwayForm">
           <div class="form-group">
             <md-input-container class="input">
