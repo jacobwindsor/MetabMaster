@@ -11,6 +11,9 @@
         <button md-button [routerLink]="['/pathway/create']">Create a pathway story</button>
       </span>
       <span class="fill-remaining-space"></span>
+      <span>
+        <button md-button [routerLink]="['help']">Help</button>
+      </span>
       <span *ngIf="auth.authenticated">
         <button md-button (click)="logout()">Sign out</button>
       </span>

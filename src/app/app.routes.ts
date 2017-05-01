@@ -5,6 +5,7 @@ import {PathwayCreateComponent} from "./pathway-create/pathway-create.component"
 import {AuthGuard} from "./auth.guard";
 import {HomeComponent} from "app/home/home.component";
 import {PathwayUpdateComponent} from "./pathway-update/pathway-update.component";
+import {HelpComponent} from "./help/help.component";
 
 const appRoutes: Routes = [
   {
@@ -24,6 +25,10 @@ const appRoutes: Routes = [
   {
     path: 'signin',
     component: SignUpOrSignInComponent
+  },
+  {
+    path: 'help',
+    component: HelpComponent
   },
   {
     path: '',
