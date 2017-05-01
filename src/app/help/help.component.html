@@ -72,14 +72,33 @@
             </li>
           </ol>
           <h2>Making descriptions interactive</h2>
-          <p>
-            To create a description with interactive links, you must use the special Markdown syntax. A guide for creating
-            the links is available <a href="https://jacobwindsor.github.io/kaavio-showdown/writers" target="_blank">
-            here</a>. You can also use Markdown to create headings, tables, lists, etc.
-          </p>
+          <ol>
+            <li>Learn how to use the special Markdown syntax <a href="https://jacobwindsor.github.io/kaavio-showdown/writers" target="_blank">
+              here</a>.</li>
+            <li>Use the <i>"Search for pathway element"</i> to search for nodes by their name. This will give you the ID
+              (in brackets) to use in the Markdown.</li>
+            <li>
+              Use Markdown to generate headings, lists, tables, etc. as well.
+            </li>
+          </ol>
           <p>
             <strong>Remember!: </strong> each link is <i>"self describing"</i>. This means the diagram will be reset
             <i>before</i> performing the operations you specify.
+          </p>
+          <h3>
+            Example
+          </h3>
+          <p>
+            Below is an extract from the Markdown for the <a [routerLink]="['/pathway', '-Ki5j7s1tRJwwenBtcfb']">
+            TCA cycle demo</a> to give you an idea.
+          </p>
+          <p>
+            <code>## Step 1</code><br>
+            <code>In the first step of the citric acid cycle,</code><br>
+            <code>K[acetyl coA, joins with a four-carbon molecule,oxaloacetate]
+              (zoomOn(['d9ef6','a39f2','e95eb']) highlightOn('a39f2', 'blue')),</code><br>
+            <code>forming a six-carbon molecule called</code><br>
+            <code>K[citrate](zoomOn(['d9ef6','a39f2','e95eb']) highlightOn('e95eb', 'green')).</code>
           </p>
         </section>
       </md-tab>
