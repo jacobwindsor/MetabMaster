@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements  OnInit {
   loading: boolean;
@@ -26,7 +26,7 @@ export class HomeComponent implements  OnInit {
       return this.pathwayService.list(this.limit + 1, this.lastReversedCreatedAt);
     }).map(pathways => {
       return pathways.map(singlePathway => {
-        return Object.assign({image: this.pathwayService.staticImageUrlFromWPId(singlePathway.WPId)}, singlePathway);
+        return Object.assign({image$: this.pathwayService.staticImageUrlFromWPId(singlePathway.WPId)}, singlePathway);
       });
     }).subscribe(pathways => {
       // The pathways service is inclusive so we remove any duplicates

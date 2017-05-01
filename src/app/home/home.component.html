@@ -11,7 +11,9 @@
   <div class="col-md-4 col-xs-12 mb-3" *ngFor="let pathway of pathways">
     <md-card>
       <a [routerLink]="['/pathway', pathway.id]">
-        <img md-card-lg-image src="{{pathway.image}}" class="pathway-image">
+        <div class="pathway-image">
+          <img md-card-lg-image [src]="pathway.image$ | async" *ngIf="pathway.image$ | async">
+        </div>
       </a>
       <md-card-title>
         <a [routerLink]="['/pathway', pathway.id]">

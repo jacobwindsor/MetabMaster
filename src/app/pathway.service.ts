@@ -111,7 +111,17 @@ export class PathwayService {
    * @param WPId
    * @returns {string}
    */
-  staticImageUrlFromWPId(WPId: number): string {
-    return `http://www.wikipathways.org/wpi/wpi.php?action=downloadFile&type=png&pwTitle=Pathway:WP${WPId}`;
+  staticImageUrlFromWPId(WPId: number): Promise<string> {
+    const url = `http://webservice.wikipathways.org/getPathwayAs?fileType=png&pwId=WP${WPId}&revision=0&format=json`;
+    const request = new Request(url);
+    return new Promise((resolve, reject) => {
+      fetch(request).then(response => {
+        return response.json().then(json => {
+          const data = json.data;
+          const image = `data:image/png;base64,${data}`;
+          resolve(image);
+        });
+      });
+    });
   }
 }
