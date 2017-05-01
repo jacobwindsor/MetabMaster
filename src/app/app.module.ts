@@ -24,6 +24,7 @@ import { PathwayDeleteDialogComponent } from './pathway-delete-dialog/pathway-de
 import { InteractiveDescriptionPresComponent } from './interactive-description.pres/interactive-description.pres.component';
 import {PathwayListService} from "./pathway-list.service";
 import { AlertComponent } from './alert/alert.component';
+import { HelpComponent } from './help/help.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AlertComponent } from './alert/alert.component';
     PathwayUpdateComponent,
     PathwayDeleteDialogComponent,
     InteractiveDescriptionPresComponent,
-    AlertComponent
+    AlertComponent,
+    HelpComponent
   ],
   entryComponents: [
     PathwayDeleteDialogComponent

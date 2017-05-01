@@ -1,0 +1,95 @@
+<div class="row">
+  <article class="col-lg-8 offset-lg-2 col-xs-12">
+    <section>
+      <h1>Help</h1>
+      <p>This page is designed to help you understand what MetabMaster is and how to use it.</p>
+    </section>
+    <md-tab-group [dynamicHeight]="true">
+      <md-tab label="What is MetabMaster?">
+        <section class="mt-3">
+          <h1>What is MetabMaster?</h1>
+          <p>MetabMaster is an app for viewing and creating "pathway stories". These stories help you understand the pathways
+            intuitively through a "show, don't tell" principle.</p>
+
+          <p>The stories compose of an interactive pathway diagram and an interactive description. The interactive
+            description contains links that, when clicked, will update the diagram to outline the information you're
+          currently reading about. Parts of the diagram can be zoomed in on, panned to, highlighted, or hidden.</p>
+
+          <p>MetabMaster is built using <a href="http://wikipathways.org" target="_blank">WikiPathways</a> for the pathway
+            diagrams. Every pathway diagram is retrieved from the WikiPathways database.</p>
+        </section>
+      </md-tab>
+      <md-tab label="Viewing">
+        <section class="mt-3">
+          <h1>Viewing pathway stories</h1>
+          <p>On the <a [routerLink]="['/']">home page</a> you'll find a list of the recently added pathway stories in
+          reverse chronological order. Click the "view" button to head over to the pathway story. Once there, you should see
+          a diagram on the right (at top if on mobile) and a description on the left. Click through the links to see the
+          diagram update.</p>
+          <p>Try out <a [routerLink]="['/pathway', '-Ki5j7s1tRJwwenBtcfb']">this demo of the TCA cycle</a>.</p>
+        </section>
+      </md-tab>
+      <md-tab label="Creating">
+        <section class="mt-3">
+          <h1>Creating pathway stories</h1>
+          <h2>Guiding principles</h2>
+          <ul>
+            <li><strong>Create a "story"</strong>. The description must explain the pathway in a time-related manner.</li>
+            <li><strong>Make it interactive.</strong> Include interactive links to show, in the diagram, what you're
+            talking about in your story at particular points.</li>
+            <li><strong>"Show, don't tell"</strong>. Use the diagram and the description together to "show" the reader what
+              happens in the pathway.</li>
+          </ul>
+          <h2>Sign up</h2>
+          <p>
+            You need to have an account first so go ahead and <a [routerLink]="['/signin']">sign up here</a>. You must be
+            signed in to create pathway stories.
+          </p>
+          <h2>Find a pathway in WikiPathways</h2>
+          <p>You need to find the pathway you want to write a story for in
+            <a href="http://wikipathways.org" target="_blank">WikiPathways</a>. You can use the search tool to find a
+            pathway or create a new one. The
+            <a href="http://www.wikipathways.org/index.php/Help:New_Contributor_Quickstart" target="_blank">
+              contributor quickstart</a> has some useful tips on how to get started in WikiPathways.</p>
+          <h2>Creating a new story</h2>
+          <ol>
+            <li>
+              Go to the <a [routerLink]="['/pathway', 'create']">create page</a> to see the creation form.
+            </li>
+            <li>
+              Grab the WikiPathways ID from your chosen WikiPathways pathway. This is the last part of the pathway's URL.
+              For example, the URL for the TCA cycle is <i>http://www.wikipathways.org/index.php/Pathway:WP78</i>
+              so the WikiPathways ID is <strong>78</strong>.
+            </li>
+            <li>
+              Fill in the WikiPathways ID and you will see the pathway diagram load on the right.
+            </li>
+            <li>
+              Fill in the title and description.
+            </li>
+            <li>
+              Hit save and see your pathway story!
+            </li>
+          </ol>
+          <h2>Making descriptions interactive</h2>
+          <p>
+            To create a description with interactive links, you must use the special Markdown syntax. A guide for creating
+            the links is available <a href="https://jacobwindsor.github.io/kaavio-showdown/writers" target="_blank">
+            here</a>. You can also use Markdown to create headings, tables, lists, etc.
+          </p>
+          <p>
+            <strong>Remember!: </strong> each link is <i>"self describing"</i>. This means the diagram will be reset
+            <i>before</i> performing the operations you specify.
+          </p>
+        </section>
+      </md-tab>
+      <md-tab label="Get in touch">
+        <section class="mt-3">
+          <h1>Get in touch!</h1>
+          <p>Feel free to <a href="mailto:jacob.windsor@ymail.com">email me</a> (Jacob Windsor) if
+            you would like some extra information about MetabMaster, have feedback, or just want to say hi!</p>
+        </section>
+      </md-tab>
+    </md-tab-group>
+  </article>
+</div>
