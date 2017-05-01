@@ -30,12 +30,14 @@
     "copy": "^0.3.0",
     "core-js": "^2.4.1",
     "firebase": "^3.7.5",
+    "intl": "^1.2.5",
     "ng2-validators": "^2.1.1",
     "promise-polyfill": "^6.0.2",
     "pvjs": "git://github.com/wikipathways/pvjs.git#typescript-react",
     "rxjs": "^5.1.0",
     "showdown": "^1.6.4",
     "web-animations-js": "^2.2.2",
+    "whatwg-fetch": "^2.0.3",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
