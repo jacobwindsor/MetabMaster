@@ -7,7 +7,6 @@
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --prod --aot",
-    "postinstall": "copy:pvjs",
     "copy:pvjs": "rimraf src/assets/pvjs && cp -r node_modules/@wikipathways/pvjs/dist src/assets && mv src/assets/dist src/assets/pvjs && echo 'Fix issue with react-seletize CSS in bridgedb!'",
     "test": "echo \"Don't test yet. Do tests later for speed\"",
     "lint": "ng lint",
