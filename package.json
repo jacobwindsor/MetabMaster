@@ -7,10 +7,13 @@
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --prod --aot",
+    "postinstall": "copy:pvjs",
+    "copy:pvjs": "rimraf src/assets/pvjs && cp -r node_modules/@wikipathways/pvjs/dist src/assets && mv src/assets/dist src/assets/pvjs && echo 'Fix issue with react-seletize CSS in bridgedb!'",
     "test": "echo \"Don't test yet. Do tests later for speed\"",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "copy": "copy"
+    "copy": "copy",
+    "rimraf": "rimraf"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +29,7 @@
     "@angular/router": "^4.0.0",
     "@types/react": "^15.0.20",
     "@wikipathways/kaavio-showdown": "^1.2.0",
+    "@wikipathways/pvjs": "^3.0.0-beta",
     "bootstrap": "^4.0.0-alpha.6",
     "copy": "^0.3.0",
     "core-js": "^2.4.1",
@@ -33,7 +37,6 @@
     "intl": "^1.2.5",
     "ng2-validators": "^2.1.1",
     "promise-polyfill": "^6.0.2",
-    "pvjs": "git://github.com/wikipathways/pvjs.git#typescript-react",
     "rxjs": "^5.1.0",
     "showdown": "^1.6.4",
     "web-animations-js": "^2.2.2",
@@ -55,6 +58,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.0",
+    "rimraf": "^2.6.1",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.2.0",
