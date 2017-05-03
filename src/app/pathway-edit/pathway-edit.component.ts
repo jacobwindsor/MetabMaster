@@ -25,7 +25,7 @@ export class PathwayEditComponent implements OnInit {
 
   pathwayForm = new FormGroup({
     WPId: new FormControl('', Validators.compose([Validators.required, UniversalValidators.isNumber])),
-    title: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30)])),
+    title: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(100)])),
     markdown: new FormControl('', Validators.required)
   });
 
