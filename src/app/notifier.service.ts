@@ -7,7 +7,7 @@ export class NotifierService {
 
   constructor() { }
 
-  notify(message: string, type: string) {
+  notify(message: string, type: string, willTimeOut = true) {
     if (! this.allowed.indexOf(type)) {
       // Default to info
       type = 'info';
@@ -17,7 +17,7 @@ export class NotifierService {
       type: type,
       theme: 'sunset',
       text: message,
-      timeout: 3000,
+      timeout: willTimeOut ? 5000 : false,
       closeWith: ['click', 'button'],
       queue: 'global',
       animation: {

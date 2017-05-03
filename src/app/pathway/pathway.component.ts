@@ -64,7 +64,7 @@ export class PathwayComponent implements OnInit {
           this.pathwayService.destroy(this.id).then(_ => {
             this.router.navigate(['']);
           }).catch(err => {
-            this.notifier.notify(err.message, 'error')
+            this.notifier.notify(err.message, 'error');
           });
         }
     });
