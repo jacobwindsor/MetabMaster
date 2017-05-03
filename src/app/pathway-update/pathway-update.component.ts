@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {PathwayService} from "../pathway.service";
+import {NotifierService} from "../notifier.service";
 
 @Component({
   selector: 'app-pathway-update',
@@ -12,12 +13,12 @@ export class PathwayUpdateComponent implements OnInit {
   title: string;
   WPId: number;
   markdown: string;
-  error: string;
   private id: string;
   private userId: string;
 
 
-  constructor(private route: ActivatedRoute, public pathwayService: PathwayService, private router: Router) { }
+  constructor(private route: ActivatedRoute, public pathwayService: PathwayService, private router: Router,
+              private notifier: NotifierService) { }
 
   ngOnInit() {
     this.loading = true;
@@ -43,7 +44,7 @@ export class PathwayUpdateComponent implements OnInit {
     }).then(_ => {
       this.router.navigate(['/pathway', this.id]);
     }).catch(err => {
-      this.error = err.message;
+      this.notifier.notify(err.message, 'error');
     });
   }
 

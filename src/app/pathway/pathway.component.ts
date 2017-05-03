@@ -3,6 +3,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Pathway, PathwayService} from "../pathway.service";
 import {MdDialog} from "@angular/material";
 import {PathwayDeleteDialogComponent} from "../pathway-delete-dialog/pathway-delete-dialog.component";
+import {NotifierService} from "../notifier.service";
 
 // TODO: Track https://github.com/furqanZafar/react-selectize/pull/130 and add back when can compile
 // import {Pvjs} from 'pvjs';
@@ -23,7 +24,7 @@ export class PathwayComponent implements OnInit {
   private id: string;
 
   constructor(private route: ActivatedRoute, public pathwayService: PathwayService,
-              private dialog: MdDialog, public router: Router) { }
+              private dialog: MdDialog, public router: Router, private notifier: NotifierService) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -62,6 +63,8 @@ export class PathwayComponent implements OnInit {
         if (result.confirmed) {
           this.pathwayService.destroy(this.id).then(_ => {
             this.router.navigate(['']);
+          }).catch(err => {
+            this.notifier.notify(err.message, 'error')
           });
         }
     });

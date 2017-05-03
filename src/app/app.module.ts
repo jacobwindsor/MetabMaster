@@ -25,6 +25,7 @@ import { InteractiveDescriptionPresComponent } from './interactive-description.p
 import {PathwayListService} from "./pathway-list.service";
 import { AlertComponent } from './alert/alert.component';
 import { HelpComponent } from './help/help.component';
+import {NotifierService} from "./notifier.service";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { HelpComponent } from './help/help.component';
     PathwayService,
     PathwayListService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    NotifierService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -3,6 +3,7 @@ import {AuthService} from "../auth.service";
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from "@angular/router";
 import {PasswordValidators, EmailValidators} from 'ng2-validators';
+import {NotifierService} from "../notifier.service";
 
 @Component({
   selector: 'app-sign-up-or-sign-in',
@@ -10,7 +11,6 @@ import {PasswordValidators, EmailValidators} from 'ng2-validators';
   styleUrls: ['./sign-up-or-sign-in.component.css']
 })
 export class SignUpOrSignInComponent implements OnInit {
-  error: string;
 
   signInForm = new FormGroup({
     email: new FormControl('', Validators.compose([
@@ -39,7 +39,7 @@ export class SignUpOrSignInComponent implements OnInit {
     ]))
   });
 
-  constructor(public auth: AuthService, public router: Router) { }
+  constructor(public auth: AuthService, public router: Router, private notifer: NotifierService) { }
 
   ngOnInit(): void {
     this.auth.authState$.subscribe(user => {
@@ -56,7 +56,7 @@ export class SignUpOrSignInComponent implements OnInit {
 
     const formVal = this.signInForm.value;
     this.auth.signInWithEmailAndPassword(formVal.email, formVal.password)
-      .catch(err => this.error = err.message);
+      .catch(err =>  this.notifer.notify(err.message, 'error'));
   }
 
   signUp() {
@@ -66,7 +66,7 @@ export class SignUpOrSignInComponent implements OnInit {
 
     const formVal = this.signUpForm.value;
     this.auth.signUpWithEmailAndPassword(formVal.email, formVal.password)
-      .catch(err => this.error = err.message);
+      .catch(err => this.notifer.notify(err.message, 'error'));
   }
 
 }
