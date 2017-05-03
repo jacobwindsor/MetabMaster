@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Rx";
 import {PathwayService} from "../pathway.service";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
+import {NotifierService} from "../notifier.service";
 
 declare var Pvjs: any;
 
@@ -14,7 +15,8 @@ declare var Pvjs: any;
 })
 export class PathwayCreateComponent implements OnInit {
 
-  constructor(public pathwayService: PathwayService, public auth: AuthService, public router: Router) { }
+  constructor(public pathwayService: PathwayService, public auth: AuthService, public router: Router,
+              private notifier: NotifierService) { }
 
   ngOnInit() {
 
@@ -29,7 +31,7 @@ export class PathwayCreateComponent implements OnInit {
     }).then(key => {
       this.router.navigate(['/pathway', key]);
     }).catch(err => {
-      console.log(err);
+      this.notifier.notify(err.message, 'error');
     });
   }
 }

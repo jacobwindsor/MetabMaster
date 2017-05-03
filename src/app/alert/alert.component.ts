@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import Noty from 'noty';
 
 @Component({
   selector: 'app-alert',
@@ -6,8 +7,8 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent implements OnInit {
-  private allowed = ['success', 'warning', 'danger', 'info'];
-  @Input() type: string; // success, warning, danger, info
+  private allowed = ['success', 'warning', 'error', 'alert', 'info'];
+  @Input() type: string;
   @Input() heading: string;
   @Input() message: string;
   constructor() { }
@@ -17,6 +18,18 @@ export class AlertComponent implements OnInit {
       // Default to info
       this.type = 'info';
     }
+
+    new Noty({
+      type: this.type,
+      text: this.message,
+      timeout: 3000,
+      closeWith: ['click', 'button'],
+      queue: 'global',
+      animation: {
+        open: 'noty_effects_open',
+        close: 'noty_effects_close'
+      },
+    }).show();
   }
 
 }
