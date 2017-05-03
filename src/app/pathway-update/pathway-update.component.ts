@@ -12,6 +12,7 @@ export class PathwayUpdateComponent implements OnInit {
   title: string;
   WPId: number;
   markdown: string;
+  error: string;
   private id: string;
   private userId: string;
 
@@ -41,6 +42,8 @@ export class PathwayUpdateComponent implements OnInit {
       description: val.markdown
     }).then(_ => {
       this.router.navigate(['/pathway', this.id]);
+    }).catch(err => {
+      this.error = err;
     });
   }
 

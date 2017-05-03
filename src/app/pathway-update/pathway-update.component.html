@@ -1,3 +1,4 @@
+<app-alert *ngIf="error" [type]="warning" [message]="error"></app-alert>
 <md-progress-spinner mode="indeterminate" class="loading-spinner" *ngIf="loading"></md-progress-spinner>
 <app-pathway-edit [WPId]="WPId" [title]="title" [markdown]="markdown" *ngIf="! loading"
                   (onSave)="updatePathway($event)"></app-pathway-edit>

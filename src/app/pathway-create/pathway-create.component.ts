@@ -13,6 +13,7 @@ declare var Pvjs: any;
   styleUrls: ['./pathway-create.component.css']
 })
 export class PathwayCreateComponent implements OnInit {
+  error: string;
 
   constructor(public pathwayService: PathwayService, public auth: AuthService, public router: Router) { }
 
@@ -29,7 +30,7 @@ export class PathwayCreateComponent implements OnInit {
     }).then(key => {
       this.router.navigate(['/pathway', key]);
     }).catch(err => {
-      console.log(err);
+      this.error = err.message;
     });
   }
 }

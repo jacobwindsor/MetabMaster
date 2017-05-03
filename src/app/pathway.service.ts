@@ -35,8 +35,9 @@ export class PathwayService {
 
     return new Promise((resolve, reject) => {
       ref.set(toSet)
-        .then(resolve(ref.key))
-        .catch(err => reject(err));
+        .then(
+          snapshot => resolve(ref.key),
+          err => reject(err));
     });
   }
 
