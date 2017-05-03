@@ -42,7 +42,10 @@ export class InteractiveDescriptionPresComponent implements OnChanges {
       // Only render description when instance and markdown are available
       // kaavio-showdown requires the pathway instance
       const showdown = getShowdown(this._pathwayInstance);
-      const converter = new showdown.Converter({extensions: ['kaavio']});
+      const converter = new showdown.Converter({
+        extensions: ['kaavio'],
+        headerLevelStart: 2
+      });
 
       this.description = <string>this.sanitizer.bypassSecurityTrustHtml(
         converter.makeHtml(this._markdown)
