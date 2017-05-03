@@ -56,6 +56,9 @@ export class SignUpOrSignInComponent implements OnInit {
 
     const formVal = this.signInForm.value;
     this.auth.signInWithEmailAndPassword(formVal.email, formVal.password)
+      .then(() => this.notifer.notify('<h2>Welcome back!</h2><p>Please fill in ' +
+        '<a href="https://goo.gl/forms/iWcyI8PjcLckCLk83" target="_blank">this form</a> to give critical feedback.</p>',
+        'success', false))
       .catch(err =>  this.notifer.notify(err.message, 'error'));
   }
 
@@ -66,6 +69,11 @@ export class SignUpOrSignInComponent implements OnInit {
 
     const formVal = this.signUpForm.value;
     this.auth.signUpWithEmailAndPassword(formVal.email, formVal.password)
+      .then(() => this.notifer.notify('<h2>Welcome to MetabMaster</h2> <p>You can now start creating pathway stories. ' +
+        'See the <a href="help">help guide</a> for guidance.</p>' +
+        '<p>Please fill in ' +
+        '<a href="https://goo.gl/forms/iWcyI8PjcLckCLk83" target="_blank">this form</a> to give critical feedback.</p>',
+        'success', false))
       .catch(err => this.notifer.notify(err.message, 'error'));
   }
 
