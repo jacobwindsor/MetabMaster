@@ -10,6 +10,8 @@ import {PasswordValidators, EmailValidators} from 'ng2-validators';
   styleUrls: ['./sign-up-or-sign-in.component.css']
 })
 export class SignUpOrSignInComponent implements OnInit {
+  error: string;
+
   signInForm = new FormGroup({
     email: new FormControl('', Validators.compose([
       Validators.required,
@@ -53,7 +55,8 @@ export class SignUpOrSignInComponent implements OnInit {
     }
 
     const formVal = this.signInForm.value;
-    this.auth.signInWithEmailAndPassword(formVal.email, formVal.password);
+    this.auth.signInWithEmailAndPassword(formVal.email, formVal.password)
+      .catch(err => this.error = err.message);
   }
 
   signUp() {
@@ -62,7 +65,8 @@ export class SignUpOrSignInComponent implements OnInit {
     }
 
     const formVal = this.signUpForm.value;
-    this.auth.signUpWithEmailAndPassword(formVal.email, formVal.password);
+    this.auth.signUpWithEmailAndPassword(formVal.email, formVal.password)
+      .catch(err => this.error = err.message);
   }
 
 }

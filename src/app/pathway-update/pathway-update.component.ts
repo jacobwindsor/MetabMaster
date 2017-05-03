@@ -43,7 +43,7 @@ export class PathwayUpdateComponent implements OnInit {
     }).then(_ => {
       this.router.navigate(['/pathway', this.id]);
     }).catch(err => {
-      this.error = err;
+      this.error = err.message;
     });
   }
 
