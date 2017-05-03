@@ -42,7 +42,7 @@ export class PathwayEditComponent implements OnInit {
     },
     'title': {
       'required': 'You must enter a title!',
-      'maxlength': 'The title must be under 30 characters long.'
+      'maxlength': 'The title must be under 100 characters long.'
     },
     'markdown': {
       'required': 'Provide an interactive description!'
