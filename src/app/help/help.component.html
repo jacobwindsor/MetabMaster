@@ -40,66 +40,54 @@
             <li><strong>"Show, don't tell"</strong>. Use the diagram and the description together to "show" the reader what
               happens in the pathway.</li>
           </ul>
-          <h2>Sign up</h2>
-          <p>
-            You need to have an account first so go ahead and <a [routerLink]="['/signin']">sign up here</a>. You must be
-            signed in to create pathway stories.
-          </p>
-          <h2>Find a pathway in WikiPathways</h2>
-          <p>You need to find the pathway you want to write a story for in
-            <a href="http://wikipathways.org" target="_blank">WikiPathways</a>. You can use the search tool to find a
-            pathway or create a new one. The
-            <a href="http://www.wikipathways.org/index.php/Help:New_Contributor_Quickstart" target="_blank">
-              contributor quickstart</a> has some useful tips on how to get started in WikiPathways.</p>
-          <h2>Creating a new story</h2>
-          <ol>
-            <li>
-              Go to the <a [routerLink]="['/pathway', 'create']">create page</a> to see the creation form.
-            </li>
-            <li>
-              Grab the WikiPathways ID from your chosen WikiPathways pathway. This is the last part of the pathway's URL.
-              For example, the URL for the TCA cycle is <i>http://www.wikipathways.org/index.php/Pathway:WP78</i>
-              so the WikiPathways ID is <strong>78</strong>.
-            </li>
-            <li>
-              Fill in the WikiPathways ID and you will see the pathway diagram load on the right.
-            </li>
-            <li>
-              Fill in the title and description.
-            </li>
-            <li>
-              Hit save and see your pathway story!
-            </li>
-          </ol>
-          <h2>Making descriptions interactive</h2>
-          <ol>
-            <li>Learn how to use the special Markdown syntax <a href="https://jacobwindsor.github.io/kaavio-showdown/writers" target="_blank">
-              here</a>.</li>
-            <li>Use the <i>"Search for pathway element"</i> to search for nodes by their name. This will give you the ID
-              (in brackets) to use in the Markdown.</li>
-            <li>
-              Use Markdown to generate headings, lists, tables, etc. as well.
-            </li>
-          </ol>
-          <p>
-            <strong>Remember!: </strong> each link is <i>"self describing"</i>. This means the diagram will be reset
-            <i>before</i> performing the operations you specify.
-          </p>
-          <h3>
-            Example
-          </h3>
-          <p>
-            Below is an extract from the Markdown for the <a [routerLink]="['/pathway', '-Ki5j7s1tRJwwenBtcfb']">
-            TCA cycle demo</a> to give you an idea.
-          </p>
-          <p>
-            <code>## Step 1</code><br>
-            <code>In the first step of the citric acid cycle,</code><br>
-            <code>K[acetyl coA, joins with a four-carbon molecule,oxaloacetate]
-              (zoomOn(['d9ef6','a39f2','e95eb']) highlightOn('a39f2', 'blue')),</code><br>
-            <code>forming a six-carbon molecule called</code><br>
-            <code>K[citrate](zoomOn(['d9ef6','a39f2','e95eb']) highlightOn('e95eb', 'green')).</code>
-          </p>
+          <h2>Steps</h2>
+          <div class="steps">
+            <h3>Step 1</h3>
+            <p><strong>Sign up or sign in</strong> via <a [routerLink]="['/signin']">this page</a>.</p>
+            <h3>Step 2</h3>
+            <p>
+              <strong>Find a pathway in <a href="http://wikipathways.org" target="_blank">WikiPathways</a> to write a story for.</strong>
+              You can use the search tool to find a pathway or create a new one. The
+              <a href="http://www.wikipathways.org/index.php/Help:New_Contributor_Quickstart" target="_blank">
+                contributor quickstart</a> has some useful tips on how to get started in WikiPathways.
+            </p>
+            <h3>Step 3</h3>
+            <img src="../../assets/images/wikipathways-id.png" class="img-thumbnail">
+            <p>
+              Grab the pathway ID. This is the last part of the URL in the WikiPathways entry, excluding the WP part.
+            </p>
+            <h3>Step 4</h3>
+            <img src="../../assets/images/creator-example.png" class="img-thumbnail">
+            <p>
+              <strong>Go to the <a [routerLink]="['/pathway', 'create']">create page</a>.</strong>
+              <strong>Fill in the WikiPathways ID</strong>. You'll see the pathway diagram load up. Fill in the title and description too.
+            </p>
+            <h3>Step 5 (optional)</h3>
+            <h4 class="text-muted">Make your description interactive!</h4>
+            <img src="../../assets/images/element-search.png" class="img-thumbnail">
+            <p>
+              Use the <i>"Search for pathway element"</i> to search for nodes by their name. This will give you the ID
+              (in brackets) to use in the Markdown.
+            </p>
+            <div class="row">
+              <div class="col">
+                <img src="../../assets/images/markdown-example.png" class="img-thumbnail">
+              </div>
+              <div class="col">
+                <img src="../../assets/images/markdown-preview.png" class="img-thumbnail">
+              </div>
+            </div>
+            <p>
+              <strong>Use the special Markdown syntax</strong>. Learn how <a href="https://jacobwindsor.github.io/kaavio-showdown/writers" target="_blank">
+              here</a>. <strong>Preview your story.</strong> Make sure your syntax was correct if the links are not shown correctly.
+            </p>
+            <p>
+              <strong>Remember!: </strong> each link is <i>"self describing"</i>. This means the diagram will be reset
+              <i>before</i> performing the operations you specify.
+            </p>
+            <h3>Step 6</h3>
+            <p>Hit the save button and see your pathway story in action.</p>
+          </div>
         </section>
       </md-tab>
       <md-tab label="Get in touch">
