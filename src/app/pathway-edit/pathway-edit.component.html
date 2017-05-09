@@ -28,8 +28,10 @@
             <strong>Need help?</strong> Look at the "creating" tab of the <a [routerLink]="['/help']" target="_blank">help page</a>.
           </p>
           <div class="form-group">
+
             <md-input-container class="input">
-              <input mdInput placeholder="WikiPathways ID" type="text" formControlName="WPId">
+              <p class="text-muted" style="font-size:.8rem">Find a pathway on <a href="http://wikipathways.org" target="_blank">WikiPathwayss</a>. </p>
+              <input mdInput placeholder="E.g. input 78 for the TCA cycle" type="text" formControlName="WPId">
             </md-input-container>
             <p style="color: red; font-size: .9rem" *ngIf="formErrors.WPId" class="error">
              {{ formErrors.WPId }}
