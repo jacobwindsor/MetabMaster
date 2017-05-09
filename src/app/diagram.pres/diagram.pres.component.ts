@@ -5,7 +5,7 @@ declare var Pvjs: any;
 @Component({
   selector: 'app-pres-diagram',
   templateUrl: './diagram.pres.component.html',
-  styleUrls: ['./diagram.pres.component.css']
+  styleUrls: ['./diagram.pres.component.scss']
 })
 export class DiagramPresComponent {
   @ViewChild('pathway') pathway;
@@ -20,7 +20,7 @@ export class DiagramPresComponent {
     if (! WPId) { return; }
     this.pathway.nativeElement.innerHTML = '';
 
-    Pvjs.loadDiagram('#pathway', 'WP' + WPId, {
+    Pvjs.loadDiagram('#' + this.pathway.nativeElement.id, 'WP' + WPId, {
       width: '100%',
       height: '100%'
     }, instance => {
