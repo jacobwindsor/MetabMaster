@@ -24,6 +24,9 @@
     <md-tab-group>
       <md-tab label="Editor">
         <form class="mt-3" [formGroup]="pathwayForm">
+          <p class="text-muted" style="font-size:.8rem">
+            <strong>Need help?</strong> Look at the "creating" tab of the <a [routerLink]="['/help']" target="_blank">help page</a>.
+          </p>
           <div class="form-group">
             <md-input-container class="input">
               <input mdInput placeholder="WikiPathways ID" type="text" formControlName="WPId">
