@@ -27,6 +27,13 @@ export class PathwayComponent implements OnInit {
               private dialog: MdDialog, public router: Router, private notifier: NotifierService) { }
 
   ngOnInit(): void {
+    this.notifier.notify(`
+      <h3>Not working?</h3>
+      <p>
+        Diagrams may not render correctly in some browsers. Please download the latest version of Chrome 
+        <a href="https://www.google.co.uk/chrome/browser/desktop/index.html" target="_blank">here</a>.
+      </p>
+    `, 'info', false);
     this.loading = true;
 
     this.route.params.subscribe((params: Params) => {
@@ -49,7 +56,7 @@ export class PathwayComponent implements OnInit {
         this.pathwayInstance = pathwayInstance;
       }
     });
-  }
+  };
 
   onDescriptionRenderedChange(rendered: boolean): void {
     if (! rendered) { return; }
