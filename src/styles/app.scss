@@ -17,13 +17,15 @@
 @import "~bootstrap/scss/forms";
 @import "~bootstrap/scss/alert";
 @import "~bootstrap/scss/images";
+@import "~bootstrap/scss/list-group";
+
 
 // Utility classes
 @import "~bootstrap/scss/utilities";
 
 
 /*Import Material*/
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 

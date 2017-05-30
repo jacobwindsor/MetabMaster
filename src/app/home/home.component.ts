@@ -1,43 +1,55 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Pathway, PathwayService} from "../pathway.service";
-import {PathwayListService} from "../pathway-list.service";
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { CompoundService } from '../compound.service';
 import {Observable, Subject} from "rxjs/Rx";
 import * as _ from 'lodash';
+import {NotifierService} from "../notifier.service";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements  OnInit {
+export class HomeComponent implements  OnInit, OnDestroy {
   loading: boolean;
   limit = 10;
-  private clickEvent: Subject<null[]> = new Subject();
-  clickEvent$ = this.clickEvent.asObservable();
-  pathways: any[] = [];
-  private lastReversedCreatedAt: number;
-  constructor(public pathwayList: PathwayListService, public pathwayService: PathwayService) { }
+  compounds = [];
+  activeCompoundSet: any;
+  private curPage = 0;
+  private clickEvent$: Subject<boolean> = new Subject();
+  private onDestroy$ = new Subject<boolean>();
+  constructor(public compoundService: CompoundService, private notifier: NotifierService) { }
 
   ngOnInit() {
     this.loading = true;
-    this.clickEvent$.startWith([]).flatMap((pathways: Pathway[]) => {
-      // Use the lastReversedCreatedAt to start at
-      // Add one to the timestamp to get the next one
-      return this.pathwayService.list(this.limit, this.lastReversedCreatedAt + 1);
-    }).map(pathways => {
-      return pathways.map(singlePathway => {
-        return Object.assign({image$: this.pathwayService.staticImageUrlFromWPId(singlePathway.WPId)}, singlePathway);
+    this.clickEvent$
+      .startWith(true)
+      .map(() => this.curPage * this.limit)
+      .exhaustMap(skip =>
+        this.compoundService.list(skip, this.limit),
+        (skip, compounds) => compounds
+      )
+      .takeUntil(this.onDestroy$)
+      .subscribe(compounds => {
+        this.compounds = this.compounds.concat(compounds);
+        console.log(this.compounds)
+        this.loading = false;
+      }, err => {
+        this.notifier.notify(`Oops! Failed to get the compounds set. <strong>Message:</strong> ${err.message}`,
+          'error');
       });
-    }).subscribe(pathways => {
-      // The pathways service is inclusive so we remove any duplicates
-      this.pathways = _.uniqBy(this.pathways.concat(pathways), 'id');
-      this.lastReversedCreatedAt = pathways.length > 0 ? pathways[pathways.length - 1].reversedCreatedAt : null;
-      this.loading = false;
-    });
   }
 
   getNext() {
-    this.clickEvent.next([]);
+    this.curPage = this.curPage + 1;
+    this.clickEvent$.next(true);
     this.loading = true;
+  }
+
+  onActiveCompoundSet(compound) {
+    this.activeCompoundSet = compound;
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next(true);
   }
 }

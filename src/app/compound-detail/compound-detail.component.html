@@ -1,0 +1,28 @@
+<div class="list-group">
+  <div class="list-group-item" *ngFor="let compound of compoundSet.compounds">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{compound.IUPAC}}</h5>
+      <small><md-icon>stars</md-icon> {{compound.totalHits}}</small>
+    </div>
+    <div class="d-flex w-100">
+      <ul class="mb-1">
+        <li>
+          PubChem
+          <ul>
+            <li *ngIf="compound.pubChem.IDs.length > 0"><strong>IDs: </strong>{{compound.pubChem.IDs}}</li>
+            <li><strong>Assay count: </strong>{{compound.pubChem.assayCount}}</li>
+            <li><strong>Pathway count: </strong>{{compound.pubChem.pathwayCount}}</li>
+          </ul>
+        </li>
+        <li>
+          MetaCyc
+          <ul>
+            <li *ngIf="compound.metaCyc.IDs.length > 0"><strong>IDs: </strong>{{compound.metaCyc.IDs}}</li>
+            <li><strong>Reaction count:</strong> {{compound.metaCyc.reactionCount}}</li>
+            <li><strong>Pathway count:</strong> {{compound.metaCyc.pathwayCount}}</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

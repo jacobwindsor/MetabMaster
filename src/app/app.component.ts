@@ -1,5 +1,4 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import {AuthService} from "./auth.service";
 
 @Component({
   selector: 'app-root',
@@ -8,9 +7,6 @@ import {AuthService} from "./auth.service";
   encapsulation: ViewEncapsulation.Emulated
 })
 export class AppComponent {
-  constructor(public auth: AuthService) { }
+  constructor() { }
 
-  logout() {
-    this.auth.logout();
-  }
 }
