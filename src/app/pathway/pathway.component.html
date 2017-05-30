@@ -1,0 +1,32 @@
+<md-progress-spinner mode="indeterminate" class="loading-spinner" [class.hidden]="!loading"></md-progress-spinner>
+
+<div class="row justify-content-center" *ngIf="error" >
+  <div class="col-md-6 col-sm-12 align-self-xs-center">
+    <app-alert *ngIf="error" [heading]="error.heading" [message]="error.message" [type]="error"></app-alert>
+  </div>
+</div>
+
+<div [class.blurred]="loading" *ngIf="! error" class="row" id="wrapper">
+  <div class="col-xs-12 col-md-6 push-md-6" id="pathway">
+    <app-pres-diagram [WPId]="WPId" (pathwayInstance)="pathwayLoaded($event)"></app-pres-diagram>
+  </div>
+  <div class="col-xs-12 col-md-6 pull-md-6" id="description">
+    <app-pres-interactive-description [markdown]="markdown" [pathwayInstance]="pathwayInstance"
+                                      [title]="title" (isRendered)="onDescriptionRenderedChange($event)">
+    </app-pres-interactive-description>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <p>
+      <a [routerLink]="['update']" md-button>
+        <md-icon>create</md-icon>
+        Update
+      </a>
+      <button md-button (click)="destroy()">
+        <md-icon>delete</md-icon>
+        Delete
+      </button>
+    </p>
+  </div>
+</div>

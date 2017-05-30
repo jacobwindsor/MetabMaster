@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-md-4 offset-md-4 col-xs-12">
+    <md-tab-group>
+      <md-tab label="Sign in">
+        <form class="container" [formGroup]="signInForm">
+          <div class="row">
+            <md-input-container class="input">
+              <input mdInput placeholder="email" type="email" formControlName="email">
+            </md-input-container>
+            <p *ngIf="!signInForm.get('email').pristine && !! signInForm.get('email').errors" class="error">
+              Please enter a valid email!
+            </p>
+          </div>
+          <div class="row">
+            <md-input-container class="input">
+              <input mdInput placeholder="password" type="password" formControlName="password">
+            </md-input-container>
+            <p *ngIf="!signInForm.get('password').pristine && !! signInForm.get('password').errors" class="error">
+              Please enter a password!
+            </p>
+          </div>
+          <div class="row">
+            <button md-raised-button (click)="signIn()">Sign in</button>
+          </div>
+        </form>
+      </md-tab>
+      <md-tab label="Sign up">
+        <form class="container" [formGroup]="signUpForm">
+          <div class="row">
+            <md-input-container class="input">
+              <input mdInput placeholder="email" type="email" formControlName="email">
+            </md-input-container>
+            <p *ngIf="!signUpForm.get('email').pristine && !! signUpForm.get('email').errors" class="error">
+              Please enter a valid email!
+            </p>
+          </div>
+          <div class="row">
+            <md-input-container class="input">
+              <input mdInput placeholder="password" type="password" formControlName="password">
+            </md-input-container>
+            <p *ngIf="!signUpForm.get('password').pristine && !! signUpForm.get('password').errors" class="error">
+              Please enter a valid password! > 6 characters.
+            </p>
+          </div>
+          <div class="row">
+            <md-input-container class="input">
+              <input mdInput placeholder="confirm password" type="password" formControlName="password2">
+            </md-input-container>
+            <p *ngIf="!signUpForm.get('password2').pristine && !! signUpForm.get('password2').errors" class="error">
+              Incorrect password confirmation.
+            </p>
+          </div>
+          <div class="row">
+            <button md-raised-button (click)="signUp()">Sign up</button>
+          </div>
+        </form>
+      </md-tab>
+    </md-tab-group>
+  </div>
+</div>

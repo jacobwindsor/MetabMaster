@@ -1,1 +1,20 @@
+.pathway-image {
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  height: auto;
+  background-color: lightgray;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
 
+  img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    bottom: 0;
+    transform: translateY(-50%);
+  }
+}

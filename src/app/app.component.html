@@ -2,17 +2,23 @@
   <div class="row">
     <md-toolbar color="primary">
       <span class="mr-3">
-        <h1>DAR-tool</h1>
+        <h1>MetabMaster</h1>
       </span>
       <span>
         <button md-button [routerLink]="['/']">Home</button>
       </span>
-      <!--<span *ngIf="auth.authenticated">-->
-        <!--<button md-button [routerLink]="['/compounds/create']">Rank your compounds</button>-->
-      <!--</span>-->
+      <span *ngIf="auth.authenticated">
+        <button md-button [routerLink]="['/pathway/create']">Create a pathway story</button>
+      </span>
       <span class="fill-remaining-space"></span>
       <span>
         <button md-button [routerLink]="['help']">Help</button>
+      </span>
+      <span *ngIf="auth.authenticated">
+        <button md-button (click)="logout()">Sign out</button>
+      </span>
+      <span *ngIf="! auth.authenticated">
+        <button md-button [routerLink]="['/signin']">Sign in</button>
       </span>
     </md-toolbar>
   </div>

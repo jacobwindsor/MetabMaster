@@ -1,4 +1,5 @@
-# DAR-tool UI
+# MetabMaster
+[![Build Status](https://travis-ci.org/jacobwindsor/MetabMaster.svg?branch=master)](https://travis-ci.org/jacobwindsor/MetabMaster)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 

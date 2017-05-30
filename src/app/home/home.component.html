@@ -1,18 +1,31 @@
 <md-progress-spinner mode="indeterminate" *ngIf="loading" class="loading-spinner"></md-progress-spinner>
 
-<div class="row" *ngIf="!loading && compounds.length < 1">
+<div class="row" *ngIf="!loading && pathways.length < 1">
   <div class="col">
-    <h1 class="text-center">No compound sets :(</h1>
-    <p class="text-center"><a [routerLink]="['compound/create']">Create one!</a></p>
+    <h1 class="text-center">No pathway stories :(</h1>
+    <p class="text-center"><a [routerLink]="['pathway/create']">Create one!</a></p>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-4 col-xs-12 mb-3">
-    <app-compounds [compounds]="compounds" (activeCompoundSet)="onActiveCompoundSet($event)"></app-compounds>
-    <button md-button color="primary" (click)="getNext()" class="m-auto" *ngIf="! loading">Load more compound sets</button>
+  <div class="col-md-4 col-xs-12 mb-3" *ngFor="let pathway of pathways">
+    <md-card>
+      <a [routerLink]="['/pathway', pathway.id]">
+        <div class="pathway-image">
+          <img md-card-lg-image [src]="pathway.image$ | async" *ngIf="pathway.image$ | async">
+        </div>
+      </a>
+      <md-card-title>
+        <a [routerLink]="['/pathway', pathway.id]">
+          <h3>{{pathway.title}}</h3>
+        </a>
+      </md-card-title>
+      <md-card-actions>
+        <a md-button [routerLink]="['/pathway', pathway.id]">View</a>
+      </md-card-actions>
+    </md-card>
   </div>
-  <div class="col-md-8 col-xs-12">
-    <app-compound-detail [compoundSet]="activeCompoundSet"></app-compound-detail>
-  </div>
+</div>
+<div class="row">
+  <button md-button color="primary" (click)="getNext()" class="m-auto" *ngIf="! loading">Load more pathways</button>
 </div>

@@ -1,0 +1,30 @@
+@import '../../styles/variables';
+@import '~bootstrap/scss/mixins/breakpoints';
+
+.blurred {
+  filter: blur(5px) grayscale(100%);
+}
+
+.hidden {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+#wrapper {
+  position: relative;
+  height: 80vh;
+}
+
+#pathway, #description {
+  @include media-breakpoint-between(xs, md) {
+    height: 50%;
+  }
+  height: 100%;
+}
+
+#description {
+  overflow-y: scroll;
+}
+
+

@@ -1,7 +1,0 @@
-<ul class="list-group">
-  <li class="list-group-item" *ngFor="let compound of compounds"
-      (click)="clickItem(compound)"
-      [class.active]="activeCompoundSetId === compound._id">
-    {{ compound.name }}
-  </li>
-</ul>
