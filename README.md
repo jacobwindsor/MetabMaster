@@ -1,5 +1,6 @@
 # MetabMaster
 [![Build Status](https://travis-ci.org/jacobwindsor/MetabMaster.svg?branch=master)](https://travis-ci.org/jacobwindsor/MetabMaster)
+[![DOI](https://zenodo.org/badge/86341871.svg)](https://zenodo.org/badge/latestdoi/86341871)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 
